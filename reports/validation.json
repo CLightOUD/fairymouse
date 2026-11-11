@@ -1,0 +1,17 @@
+{
+  "desktop": {
+    "tools": 25,
+    "statusPassed": true,
+    "physicalInputRefused": true
+  },
+  "hidden": {
+    "tools": 11,
+    "effectsVerified": 14,
+    "unicodePassed": true,
+    "mainDesktopRefused": true,
+    "reservedDesktopRefused": true,
+    "screenshotPassed": true,
+    "fixtureClosed": true
+  },
+  "validatedAt": "2026-11-11T12:13:26.736Z"
+}

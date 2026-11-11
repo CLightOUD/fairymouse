@@ -1,0 +1,60 @@
+diff --git a/crates/windows/src/tree/automation.rs b/crates/windows/src/tree/automation.rs
+index bdef0e5..275bb1e 100644
+--- a/crates/windows/src/tree/automation.rs
++++ b/crates/windows/src/tree/automation.rs
+@@ -191,6 +191,12 @@ mod imp {
+         let client: IUIAutomation2 = unsafe { CoCreateInstance(&CUIAutomation8, None, CLSCTX_ALL) }
+             .map_err(|error| unbounded_client_error(error.code().0))?;
+         unsafe {
++            client.SetAutoSetFocus(false).map_err(|error| {
++                uia_failure_error(
++                    UiaFailure::Hresult(error.code().0),
++                    "disable automatic UI Automation focus changes",
++                )
++            })?;
+             client
+                 .SetConnectionTimeout(super::CONNECTION_TIMEOUT_MS)
+                 .map_err(|error| unbounded_client_error(error.code().0))?;
+diff --git a/crates/windows/src/tree/automation_tests.rs b/crates/windows/src/tree/automation_tests.rs
+index 663ba71..1babc66 100644
+--- a/crates/windows/src/tree/automation_tests.rs
++++ b/crates/windows/src/tree/automation_tests.rs
+@@ -282,6 +282,22 @@ mod windows_only {
+         );
+     }
+ 
++    #[test]
++    fn the_shipped_client_disables_automatic_focus_before_returning_elements() {
++        use windows::Win32::UI::Accessibility::{IUIAutomation, IUIAutomation2};
++        use windows::core::Interface;
++        bootstrap();
++        let client = automation_client().expect("a client");
++        let raw: IUIAutomation = client.as_ref().clone();
++        let configured: IUIAutomation2 = raw.cast().expect("IUIAutomation2");
++        assert!(
++            !unsafe { configured.AutoSetFocus() }
++                .expect("the client exposes its automatic focus setting")
++                .as_bool(),
++            "semantic actions must not implicitly focus the target"
++        );
++    }
++
+     /// The race Greptile named: a target that answers the pump probe and then
+     /// stops dispatching. The probe cannot help there, so the bound has to be
+     /// on the call itself.
+diff --git a/src/mcp/call.rs b/src/mcp/call.rs
+index fd58188..f20e805 100644
+--- a/src/mcp/call.rs
++++ b/src/mcp/call.rs
+@@ -27,6 +27,11 @@ pub(crate) fn call(
+         Err(error) => return error_result(&format!("Cannot locate agent-desktop: {error}")),
+     };
+     let mut command = Command::new(exe);
++    #[cfg(target_os = "windows")]
++    {
++        use std::os::windows::process::CommandExt;
++        command.creation_flags(0x08000000);
++    }
+     command
+         .args(globals)
+         .args(&argv)

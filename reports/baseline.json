@@ -1,0 +1,10 @@
+{
+  "date": "2026-11-07",
+  "desktopSemanticEffectsVerified": 36,
+  "desktopTargetActivations": 0,
+  "hiddenDirectEffectsVerified": 12,
+  "hiddenMcpEffectsVerified": 14,
+  "edgeLocalPageClickTypeAndApplyVerified": true,
+  "scope": "Standard WinForms controls and an Edge local test page, not all applications",
+  "anodeTrial": "Failed RDP listener; trial certificate and binding removed; original RDP and child-session disabled settings restored. Anode is excluded from Fairymouse."
+}

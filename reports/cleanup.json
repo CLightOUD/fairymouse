@@ -1,0 +1,300 @@
+{
+  "date": "2026-11-11T20:13:09.3384968+08:00",
+  "removedBytes": 4406634962,
+  "removedFiles": 21324,
+  "removed": [
+    {
+      "path": "work\\agent-desktop-src",
+      "files": 7908,
+      "bytes": 2840334846
+    },
+    {
+      "path": "work\\agent-desktop-state",
+      "files": 9,
+      "bytes": 26934
+    },
+    {
+      "path": "work\\agent-desktop-trial",
+      "files": 32,
+      "bytes": 30723754
+    },
+    {
+      "path": "work\\anode-trial",
+      "files": 42,
+      "bytes": 148519054
+    },
+    {
+      "path": "work\\config-backup",
+      "files": 1,
+      "bytes": 6399
+    },
+    {
+      "path": "work\\fix-validation",
+      "files": 33,
+      "bytes": 1541633
+    },
+    {
+      "path": "work\\hidden-desktop-src",
+      "files": 57,
+      "bytes": 871441
+    },
+    {
+      "path": "work\\hidden-edge-guest-profile",
+      "files": 567,
+      "bytes": 69709067
+    },
+    {
+      "path": "work\\hidden-mcp-validation",
+      "files": 3,
+      "bytes": 2125
+    },
+    {
+      "path": "work\\hidden-validation",
+      "files": 7,
+      "bytes": 502779
+    },
+    {
+      "path": "work\\npm-cache",
+      "files": 7,
+      "bytes": 15388801
+    },
+    {
+      "path": "work\\rdp-repair",
+      "files": 5,
+      "bytes": 4732
+    },
+    {
+      "path": "work\\skill-validation-libs",
+      "files": 44,
+      "bytes": 728768
+    },
+    {
+      "path": "work\\toolchain",
+      "files": 4310,
+      "bytes": 1016922514
+    },
+    {
+      "path": "work\\uv-cache",
+      "files": 2433,
+      "bytes": 69837785
+    },
+    {
+      "path": "work\\close.flag",
+      "files": 1,
+      "bytes": 16
+    },
+    {
+      "path": "work\\DesktopTrial.cs",
+      "files": 1,
+      "bytes": 3382
+    },
+    {
+      "path": "work\\DesktopTrial.exe",
+      "files": 1,
+      "bytes": 8192
+    },
+    {
+      "path": "work\\DesktopTrialFixed.exe",
+      "files": 1,
+      "bytes": 8704
+    },
+    {
+      "path": "work\\DesktopTrialHidden.cs",
+      "files": 1,
+      "bytes": 3428
+    },
+    {
+      "path": "work\\DesktopTrialHidden.exe",
+      "files": 1,
+      "bytes": 8704
+    },
+    {
+      "path": "work\\Diagnose-RdpAdmin.ps1",
+      "files": 1,
+      "bytes": 962
+    },
+    {
+      "path": "work\\Fairymouse.SKILL.md",
+      "files": 1,
+      "bytes": 3556
+    },
+    {
+      "path": "work\\fixture-pid.txt",
+      "files": 1,
+      "bytes": 7
+    },
+    {
+      "path": "work\\fixture-state.txt",
+      "files": 1,
+      "bytes": 125
+    },
+    {
+      "path": "work\\hidden-browser-after.png",
+      "files": 1,
+      "bytes": 36143
+    },
+    {
+      "path": "work\\hidden-browser-before.png",
+      "files": 1,
+      "bytes": 36143
+    },
+    {
+      "path": "work\\hidden-browser-test.html",
+      "files": 1,
+      "bytes": 645
+    },
+    {
+      "path": "work\\Hidden-Browser-Trial.py",
+      "files": 1,
+      "bytes": 1747
+    },
+    {
+      "path": "work\\hidden-final-test.png",
+      "files": 1,
+      "bytes": 14369
+    },
+    {
+      "path": "work\\Measure-DesktopAction.ps1",
+      "files": 1,
+      "bytes": 1444
+    },
+    {
+      "path": "work\\migration-config-before.toml",
+      "files": 1,
+      "bytes": 6760
+    },
+    {
+      "path": "work\\migration-preserved.patch",
+      "files": 1,
+      "bytes": 2550
+    },
+    {
+      "path": "work\\rdp-admin-diagnostic.txt",
+      "files": 1,
+      "bytes": 2965
+    },
+    {
+      "path": "work\\rdp-diagnostic-pid.txt",
+      "files": 1,
+      "bytes": 6
+    },
+    {
+      "path": "work\\rdp-repair-pid.txt",
+      "files": 1,
+      "bytes": 7
+    },
+    {
+      "path": "work\\Repair-RdpCertificate.ps1",
+      "files": 1,
+      "bytes": 3135
+    },
+    {
+      "path": "work\\snapshot-after-text.json",
+      "files": 1,
+      "bytes": 2338
+    },
+    {
+      "path": "work\\snapshot-background.json",
+      "files": 1,
+      "bytes": 2933
+    },
+    {
+      "path": "work\\snapshot-check.json",
+      "files": 1,
+      "bytes": 2348
+    },
+    {
+      "path": "work\\snapshot-click.json",
+      "files": 1,
+      "bytes": 2321
+    },
+    {
+      "path": "work\\snapshot-initial.json",
+      "files": 1,
+      "bytes": 3004
+    },
+    {
+      "path": "work\\snapshot-ready.json",
+      "files": 1,
+      "bytes": 2953
+    },
+    {
+      "path": "work\\snapshot-set-value-repeat.json",
+      "files": 1,
+      "bytes": 2352
+    },
+    {
+      "path": "work\\telemetry.tsv",
+      "files": 1,
+      "bytes": 381751
+    },
+    {
+      "path": "work\\Test-BackgroundMcp.mjs",
+      "files": 1,
+      "bytes": 3654
+    },
+    {
+      "path": "work\\test-check.json",
+      "files": 1,
+      "bytes": 1286
+    },
+    {
+      "path": "work\\test-click.json",
+      "files": 1,
+      "bytes": 1185
+    },
+    {
+      "path": "work\\Test-HiddenDesktop.py",
+      "files": 1,
+      "bytes": 2620
+    },
+    {
+      "path": "work\\Test-HiddenMcp.mjs",
+      "files": 1,
+      "bytes": 4645
+    },
+    {
+      "path": "work\\test-set-value-repeat.json",
+      "files": 1,
+      "bytes": 1357
+    },
+    {
+      "path": "work\\test-set-value.json",
+      "files": 1,
+      "bytes": 1320
+    },
+    {
+      "path": "work\\TrialNative.cs",
+      "files": 1,
+      "bytes": 950
+    },
+    {
+      "path": "work\\Undo-AnodeTrial.ps1",
+      "files": 1,
+      "bytes": 1209
+    },
+    {
+      "path": "work\\Validate-FixedDesktop.ps1",
+      "files": 1,
+      "bytes": 2837
+    },
+    {
+      "path": "outputs\\后台电脑控制",
+      "files": 5824,
+      "bytes": 210940820
+    },
+    {
+      "path": "outputs\\agent-desktop_实测数据.json",
+      "files": 1,
+      "bytes": 6934
+    },
+    {
+      "path": "outputs\\agent-desktop_试用结论.txt",
+      "files": 1,
+      "bytes": 2523
+    }
+  ],
+  "oldServiceProcessesStopped": 5,
+  "preserved": "Patched native executable, full source patch, hidden desktop backend, locked Python runtime, skills, tests and licenses",
+  "systemChanges": "None during migration"
+}

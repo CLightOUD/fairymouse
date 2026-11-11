@@ -1,0 +1,7 @@
+/python/
+/runtime/
+/desktop/state/
+/tests/.work/
+/reports/*.png
+__pycache__/
+*.py[cod]
