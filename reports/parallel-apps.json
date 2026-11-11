@@ -1,0 +1,271 @@
+{
+  "status": "passed",
+  "validatedAt": "2026-11-11T14:58:01.636Z",
+  "format": "xlsx",
+  "scope": "Independent MCP caller processes on distinct hidden desktops; tests exercise agent tool contracts, not an LLM benchmark.",
+  "callers": [
+    {
+      "id": "wps",
+      "exitCode": 0,
+      "status": "passed",
+      "evidence": {
+        "validatedAt": "2026-11-11T14:58:01.834Z",
+        "tests": [
+          {
+            "format": "xlsx",
+            "status": "passed",
+            "validatedAt": "2026-11-11T14:58:01.836Z",
+            "version": "12,1,0,28043",
+            "hiddenWindowVerified": true,
+            "controlClasses": [
+              "XLMAIN",
+              "Qt5QWindowIcon",
+              "EXCEL<",
+              "XLDESK",
+              "EXCEL7",
+              "EXCEL6"
+            ],
+            "initialEditRoute": "append through observed formula-bar client click and WM_CHAR",
+            "expectedCells": {
+              "A1": "Fairymouse XLSX originalFairymouseXLSX21076",
+              "A2": 7,
+              "B2": 6,
+              "C2": {
+                "formula": "SUM(A2:B2)*2",
+                "value": 26
+              }
+            },
+            "saveTargetClass": "XLMAIN",
+            "fileSaveVerified": true,
+            "cleanedUp": true,
+            "monitor": {
+              "samples": 1964,
+              "foregroundChanges": 0,
+              "focusChanges": 0,
+              "cursorChanges": 0,
+              "invalidSamples": 0,
+              "maximumSampleGapMs": 32,
+              "changeEvents": [],
+              "scope": "20 ms sampling; changes may be user activity; cannot exclude changes between samples"
+            },
+            "readbackAfterExit": {
+              "cells": {
+                "A1": {
+                  "value": "Fairymouse XLSX originalFairymouseXLSX21076",
+                  "formula": null
+                },
+                "A2": {
+                  "value": "7",
+                  "formula": null
+                },
+                "B2": {
+                  "value": "6",
+                  "formula": null
+                },
+                "C2": {
+                  "value": "26",
+                  "formula": "SUM(A2:B2)*2"
+                }
+              },
+              "markerPresent": true
+            }
+          }
+        ],
+        "status": "passed"
+      },
+      "desktops": [
+        "FairyHidden-xlsx-21076"
+      ],
+      "mutations": 14
+    },
+    {
+      "id": "edge",
+      "exitCode": 0,
+      "status": "passed",
+      "evidence": {
+        "app": "Microsoft Edge",
+        "status": "passed",
+        "route": "hidden Win32 messages plus hidden UIA browser context menu and native Save As; CDP read-only geometry/state",
+        "validatedAt": "2026-11-11T14:58:01.877Z",
+        "rendererClass": "Chrome_RenderWidgetHostHWND",
+        "topClass": "Chrome_WidgetWin_1",
+        "browserVersion": "Edg/158.0.4370.16",
+        "marker": "FAIRYMOUSE_NATIVE_SAVE_1794409081878",
+        "savedFileBytes": 599,
+        "nativeSaveDialogObserved": true,
+        "fileReadbackVerified": true,
+        "screenshotCaptured": true,
+        "physicalInputUsed": false,
+        "cleanedUp": true,
+        "foreground": {
+          "samples": 1686,
+          "foregroundChanges": 0,
+          "focusChanges": 0,
+          "cursorChanges": 0,
+          "invalidSamples": 0,
+          "maximumSampleGapMs": 32,
+          "changeEvents": [],
+          "scope": "20 ms sampling; changes may be user activity; cannot exclude changes between samples"
+        }
+      },
+      "desktops": [
+        "FairyHidden-EdgeSave-49548"
+      ],
+      "mutations": 7
+    },
+    {
+      "id": "paint",
+      "exitCode": 0,
+      "status": "passed",
+      "evidence": {
+        "app": "Windows Paint",
+        "status": "passed",
+        "validatedAt": "2026-11-11T14:58:01.887Z",
+        "physicalInputUsed": false,
+        "version": "11.2609.401.0",
+        "preexistingProcessCount": 0,
+        "samePidOnHiddenDesktop": true,
+        "diskVerification": {
+          "size": [
+            160,
+            320
+          ],
+          "pixelsMatch": true
+        },
+        "fileSaveVerified": true,
+        "screenshot": "D:\\Fairymouse\\tests\\.work\\paint-1794409081887\\paint.png",
+        "cleanedUp": true,
+        "afterExitVerification": {
+          "size": [
+            160,
+            320
+          ],
+          "pixelsMatch": true
+        },
+        "foregroundMonitor": {
+          "samples": 1388,
+          "foregroundChanges": 0,
+          "focusChanges": 0,
+          "cursorChanges": 0,
+          "invalidSamples": 0,
+          "maximumSampleGapMs": 32,
+          "changeEvents": [],
+          "scope": "20 ms sampling; changes may be user activity; cannot exclude changes between samples"
+        }
+      },
+      "desktops": [
+        "FairyHidden-Paint-45124"
+      ],
+      "mutations": 3
+    }
+  ],
+  "overlappingMutationRequests": [
+    {
+      "callers": [
+        "wps",
+        "paint"
+      ],
+      "tools": [
+        "hidden_click",
+        "hidden_semantic"
+      ],
+      "overlapMs": 2
+    },
+    {
+      "callers": [
+        "wps",
+        "paint"
+      ],
+      "tools": [
+        "hidden_type_text",
+        "hidden_semantic"
+      ],
+      "overlapMs": 5
+    },
+    {
+      "callers": [
+        "wps",
+        "paint"
+      ],
+      "tools": [
+        "hidden_keys",
+        "hidden_semantic"
+      ],
+      "overlapMs": 2
+    },
+    {
+      "callers": [
+        "wps",
+        "paint"
+      ],
+      "tools": [
+        "hidden_type_text",
+        "hidden_semantic"
+      ],
+      "overlapMs": 3
+    },
+    {
+      "callers": [
+        "wps",
+        "paint"
+      ],
+      "tools": [
+        "hidden_keys",
+        "hidden_semantic"
+      ],
+      "overlapMs": 1
+    },
+    {
+      "callers": [
+        "wps",
+        "edge"
+      ],
+      "tools": [
+        "hidden_click",
+        "hidden_semantic"
+      ],
+      "overlapMs": 2
+    },
+    {
+      "callers": [
+        "wps",
+        "paint"
+      ],
+      "tools": [
+        "hidden_click",
+        "hidden_semantic"
+      ],
+      "overlapMs": 2
+    },
+    {
+      "callers": [
+        "edge",
+        "paint"
+      ],
+      "tools": [
+        "hidden_semantic",
+        "hidden_semantic"
+      ],
+      "overlapMs": 444
+    }
+  ],
+  "callersWithOverlappingMutations": [
+    "wps",
+    "paint",
+    "edge"
+  ],
+  "maximumSimultaneousMutationCallers": 3,
+  "separateDesktops": true,
+  "unfinishedCallers": [],
+  "foreground": {
+    "samples": 2030,
+    "foregroundChanges": 0,
+    "focusChanges": 0,
+    "cursorChanges": 0,
+    "invalidSamples": 0,
+    "maximumSampleGapMs": 32,
+    "changeEvents": [],
+    "scope": "20 ms sampling; changes may be user activity; cannot exclude changes between samples"
+  },
+  "interferenceObservationClear": true
+}

@@ -1,17 +1,36 @@
 {
   "desktop": {
-    "tools": 25,
+    "tools": 26,
     "statusPassed": true,
     "physicalInputRefused": true
   },
   "hidden": {
-    "tools": 11,
-    "effectsVerified": 14,
+    "tools": 17,
+    "effectsVerified": 16,
     "unicodePassed": true,
     "mainDesktopRefused": true,
     "reservedDesktopRefused": true,
     "screenshotPassed": true,
-    "fixtureClosed": true
+    "fixtureClosed": true,
+    "launchVerified": true,
+    "windowlessLaunchUnverified": true,
+    "textReadbackVerified": true,
+    "conditionWaits": true,
+    "busyMutationRefused": true,
+    "concurrentStatus": true,
+    "unresponsiveControlBounded": true,
+    "targetRefs": true,
+    "consumedRefsRejected": true,
+    "staleRefsRejected": true,
+    "observationDiff": true,
+    "actionVerification": true,
+    "crossProcessOwnership": true,
+    "independentDesktops": true,
+    "parallelFixtureWrites": true,
+    "standardControls": true,
+    "hiddenSemantic": true,
+    "pauseResume": true,
+    "workerRecovery": true
   },
-  "validatedAt": "2026-11-11T12:13:26.736Z"
+  "validatedAt": "2026-11-11T14:54:38.633Z"
 }

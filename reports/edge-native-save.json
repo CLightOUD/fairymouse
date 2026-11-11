@@ -1,0 +1,26 @@
+{
+  "app": "Microsoft Edge",
+  "status": "passed",
+  "route": "hidden Win32 messages plus hidden UIA browser context menu and native Save As; CDP read-only geometry/state",
+  "validatedAt": "2026-11-11T14:56:38.700Z",
+  "rendererClass": "Chrome_RenderWidgetHostHWND",
+  "topClass": "Chrome_WidgetWin_1",
+  "browserVersion": "Edg/158.0.4370.16",
+  "marker": "FAIRYMOUSE_NATIVE_SAVE_1794408998701",
+  "savedFileBytes": 599,
+  "nativeSaveDialogObserved": true,
+  "fileReadbackVerified": true,
+  "screenshotCaptured": true,
+  "physicalInputUsed": false,
+  "cleanedUp": true,
+  "foreground": {
+    "samples": 508,
+    "foregroundChanges": 0,
+    "focusChanges": 0,
+    "cursorChanges": 0,
+    "invalidSamples": 0,
+    "maximumSampleGapMs": 32,
+    "changeEvents": [],
+    "scope": "20 ms sampling; changes may be user activity; cannot exclude changes between samples"
+  }
+}

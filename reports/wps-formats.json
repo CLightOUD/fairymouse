@@ -1,0 +1,100 @@
+{
+  "validatedAt": "2026-11-11T14:55:30.098Z",
+  "tests": [
+    {
+      "format": "docx",
+      "status": "passed",
+      "validatedAt": "2026-11-11T14:55:30.099Z",
+      "version": "12,1,0,28043",
+      "hiddenWindowVerified": true,
+      "controlClasses": [
+        "OpusApp",
+        "bosa_sdm_Microsoft Office Word 11.0",
+        "MsoCommandBarDock",
+        "Qt5QWindowIcon",
+        "_WwF",
+        "_WwB",
+        "MsoCommandBar",
+        "_WwC",
+        "_WwG"
+      ],
+      "saveTargetClass": "bosa_sdm_Microsoft Office Word 11.0",
+      "fileSaveVerified": true,
+      "cleanedUp": true,
+      "monitor": {
+        "samples": 1537,
+        "foregroundChanges": 0,
+        "focusChanges": 0,
+        "cursorChanges": 0,
+        "invalidSamples": 0,
+        "maximumSampleGapMs": 32,
+        "changeEvents": [],
+        "scope": "20 ms sampling; changes may be user activity; cannot exclude changes between samples"
+      },
+      "readbackAfterExit": {
+        "markerPresent": true,
+        "originalPreserved": true
+      }
+    },
+    {
+      "format": "xlsx",
+      "status": "passed",
+      "validatedAt": "2026-11-11T14:56:02.706Z",
+      "version": "12,1,0,28043",
+      "hiddenWindowVerified": true,
+      "controlClasses": [
+        "XLMAIN",
+        "Qt5QWindowIcon",
+        "EXCEL<",
+        "XLDESK",
+        "EXCEL7",
+        "EXCEL6"
+      ],
+      "initialEditRoute": "append through observed formula-bar client click and WM_CHAR",
+      "expectedCells": {
+        "A1": "Fairymouse XLSX originalFairymouseXLSX15600",
+        "A2": 7,
+        "B2": 6,
+        "C2": {
+          "formula": "SUM(A2:B2)*2",
+          "value": 26
+        }
+      },
+      "saveTargetClass": "XLMAIN",
+      "fileSaveVerified": true,
+      "cleanedUp": true,
+      "monitor": {
+        "samples": 1699,
+        "foregroundChanges": 0,
+        "focusChanges": 0,
+        "cursorChanges": 0,
+        "invalidSamples": 0,
+        "maximumSampleGapMs": 32,
+        "changeEvents": [],
+        "scope": "20 ms sampling; changes may be user activity; cannot exclude changes between samples"
+      },
+      "readbackAfterExit": {
+        "cells": {
+          "A1": {
+            "value": "Fairymouse XLSX originalFairymouseXLSX15600",
+            "formula": null
+          },
+          "A2": {
+            "value": "7",
+            "formula": null
+          },
+          "B2": {
+            "value": "6",
+            "formula": null
+          },
+          "C2": {
+            "value": "26",
+            "formula": "SUM(A2:B2)*2"
+          }
+        },
+        "markerPresent": true
+      }
+    }
+  ],
+  "status": "passed"
+}

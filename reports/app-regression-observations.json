@@ -1,0 +1,16 @@
+{
+  "observations": [
+    {
+      "app": "WPS XLSX",
+      "validatedAt": "2026-11-11T14:46:45.588Z",
+      "businessResult": "saved package and calculated value verified",
+      "samples": 2027,
+      "foregroundChanges": 0,
+      "focusChanges": 0,
+      "samplesWithCursorDifferentFromBaseline": 2005,
+      "attribution": "unknown; this counter is samples, not separate pointer movements",
+      "limitation": "No transition timestamps in this early run; no claim of zero cursor change or attribution to user/automation.",
+      "followup": "Added bounded timestamped change events and per-caller RPC traces for subsequent runs. Retain this observation even if later runs are stable."
+    }
+  ]
+}

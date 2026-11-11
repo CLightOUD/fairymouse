@@ -1,7 +1,10 @@
 /python/
 /runtime/
+/python-managed/
 /desktop/state/
 /tests/.work/
 /reports/*.png
 __pycache__/
 *.py[cod]
+/实测-20261111/
+/实时复测-20261111/

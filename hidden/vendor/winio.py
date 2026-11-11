@@ -17,8 +17,8 @@ actionable message on failure.
 Caveats (inherent to message-based injection, documented for honesty):
   * Apps that read raw input / DirectInput / check physical key state
     (GetAsyncKeyState) may ignore posted messages. Modifier combos (Ctrl+C) are
-    unreliable via messages; prefer WM_SETTEXT / app-specific messages, or use
-    foreground input for those apps.
+    unreliable via messages; use observed semantic actions where supported.
+    This adapter must not substitute foreground input when messages fail.
   * PrintWindow works for most GDI and Chromium/DWM windows with
     PW_RENDERFULLCONTENT, but a few GPU-exclusive surfaces render black.
 """
@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import ctypes
 import threading
+import time
 from ctypes import wintypes
 from typing import Any, Callable, Optional
 
@@ -140,12 +141,34 @@ WNDENUMPROC = ctypes.WINFUNCTYPE(wintypes.BOOL, HWND, LPARAM)
 
 
 def _get_window_text(hwnd: int) -> str:
-    length = user32.SendMessageW(hwnd, WM_GETTEXTLENGTH, 0, 0)
+    length = _send_timeout(hwnd, WM_GETTEXTLENGTH, 0, 0)
     if length <= 0:
         return ""
+    if length > 1_000_000:
+        raise WinIOError('TEXT_TOO_LARGE: window text exceeds the observation limit')
     buf = ctypes.create_unicode_buffer(length + 1)
-    user32.SendMessageW(hwnd, WM_GETTEXT, length + 1, ctypes.addressof(buf))
+    _send_timeout(hwnd, WM_GETTEXT, length + 1, ctypes.addressof(buf))
     return buf.value
+
+
+_operation_deadline = threading.local()
+
+
+def _send_timeout(hwnd, message, wparam, lparam):
+    remaining = getattr(_operation_deadline, 'value', time.monotonic() + 2) - time.monotonic()
+    if remaining <= 0:
+        raise WinIOError('TIMEOUT: observation deadline exceeded')
+    result = ctypes.c_size_t()
+    ok = user32.SendMessageTimeoutW(hwnd, message, wparam, lparam, 0x0002 | 0x0020,
+                                  max(1, min(500, int(remaining * 1000))), ctypes.byref(result))
+    if not ok:
+        raise WinIOError('MESSAGE_TIMEOUT_OR_FAILED: target did not respond; inspect before retrying')
+    return result.value
+
+
+def _post(hwnd, message, wparam, lparam):
+    if not user32.PostMessageW(hwnd, message, wparam, lparam):
+        raise WinIOError(f'MESSAGE_POST_FAILED: GetLastError={ctypes.get_last_error()}; earlier messages may have been delivered')
 
 
 def _get_class_name(hwnd: int) -> str:
@@ -197,11 +220,21 @@ def _list_child_windows_impl(hwnd: int) -> list[dict[str, Any]]:
     def cb(child, _lparam):
         r = wintypes.RECT()
         user32.GetWindowRect(child, ctypes.byref(r))
+        try:
+            text, text_error = _get_window_text(child), None
+        except WinIOError as exc:
+            text, text_error = None, str(exc)
+        point = wintypes.POINT(r.left, r.top)
+        user32.ScreenToClient(hwnd, ctypes.byref(point))
         children.append(
             {
                 "handle": int(child),
                 "class": _get_class_name(child),
-                "text": _get_window_text(child),
+                "text": text,
+                "text_error": text_error,
+                "control_id": user32.GetDlgCtrlID(child),
+                "client_left": point.x,
+                "client_top": point.y,
                 # rect relative to the top-level window's top-left
                 "left": r.left - top_rect.left,
                 "top": r.top - top_rect.top,
@@ -313,6 +346,9 @@ def run_on_window_desktop(hwnd: int, fn: Callable[[], Any]) -> Any:
     if user32.IsWindow(hwnd):
         return fn()
 
+    if hasattr(_operation_deadline, 'value'):
+        raise WinIOError('STALE_WINDOW: target disappeared; refresh observation, no cross-desktop fallback allowed')
+
     for name in _enum_desktop_names():
         outcome: dict[str, Any] = {}
 
@@ -373,21 +409,23 @@ def _send_click_impl(top: int, x: int, y: int, button: str, double: bool) -> dic
     down, up, dbl, mk = _BTN[button]
     target, cx, cy = _deepest_child_at(top, x, y)
     lp = _lparam_xy(cx, cy)
-    user32.PostMessageW(target, WM_MOUSEMOVE, 0, lp)
-    user32.PostMessageW(target, down, mk, lp)
-    user32.PostMessageW(target, up, 0, lp)
+    _post(target, WM_MOUSEMOVE, 0, lp)
+    _post(target, down, mk, lp)
+    _post(target, up, 0, lp)
     if double:
-        user32.PostMessageW(target, dbl, mk, lp)
-        user32.PostMessageW(target, up, 0, lp)
-    return {"target_hwnd": target, "client_x": cx, "client_y": cy, "button": button, "double": double}
+        _post(target, dbl, mk, lp)
+        _post(target, up, 0, lp)
+    return {"target_hwnd": target, "client_x": cx, "client_y": cy, "button": button, "double": double,
+            "status": "posted", "verified": False, "retry_safe": False}
 
 
 def send_text(hwnd: int, text: str) -> dict[str, Any]:
     """Post each character as WM_CHAR to a window (typically a focused control)."""
     def _impl() -> dict[str, Any]:
         for ch in text:
-            user32.PostMessageW(hwnd, WM_CHAR, ord(ch), 0)
-        return {"target_hwnd": int(hwnd), "chars": len(text)}
+            _post(hwnd, WM_CHAR, ord(ch), 0)
+        return {"target_hwnd": int(hwnd), "utf16_units": len(text), "chars": len(text),
+                "status": "posted", "verified": False, "retry_safe": False}
 
     return run_on_window_desktop(int(hwnd), _impl)
 
@@ -396,10 +434,11 @@ def set_control_text(hwnd: int, text: str) -> dict[str, Any]:
     """Set a control's text directly via WM_SETTEXT (reliable for edit controls)."""
     def _impl() -> dict[str, Any]:
         buf = ctypes.create_unicode_buffer(text)
-        res = user32.SendMessageTimeoutW(
-            hwnd, WM_SETTEXT, 0, ctypes.addressof(buf), 0, 2000, ctypes.byref(ctypes.c_size_t())
-        )
-        return {"target_hwnd": int(hwnd), "ok": bool(res), "text_len": len(text)}
+        res = _send_timeout(hwnd, WM_SETTEXT, 0, ctypes.addressof(buf))
+        verified = bool(res) and _get_window_text(hwnd) == text
+        return {"target_hwnd": int(hwnd), "ok": verified, "text_len": len(text),
+                "status": "verified" if verified else "verification_failed",
+                "verified": verified, "retry_safe": False}
 
     return run_on_window_desktop(int(hwnd), _impl)
 
@@ -446,11 +485,11 @@ def send_keys(hwnd: int, keys: list[str]) -> dict[str, Any]:
         vks = [_vk_for(k) for k in keys]
         for vk in vks:
             down, _ = _key_lparams(vk)
-            user32.PostMessageW(hwnd, WM_KEYDOWN, vk, down)
+            _post(hwnd, WM_KEYDOWN, vk, down)
         for vk in reversed(vks):
             _, up = _key_lparams(vk)
-            user32.PostMessageW(hwnd, WM_KEYUP, vk, up)
-        return {"target_hwnd": int(hwnd), "keys": keys}
+            _post(hwnd, WM_KEYUP, vk, up)
+        return {"target_hwnd": int(hwnd), "keys": keys, "status": "posted", "verified": False, "retry_safe": False}
 
     return run_on_window_desktop(int(hwnd), _impl)
 
@@ -502,12 +541,15 @@ def _capture_window_impl(hwnd: int, client_only: bool = False):
     h = rect.bottom - rect.top
     if w <= 0 or h <= 0:
         raise WinIOError(f"Window has non-positive size ({w}x{h}); it may be minimized.")
+    if w * h > 32_000_000:
+        raise WinIOError('CAPTURE_TOO_LARGE: window exceeds 32 million pixels')
 
     hdc_win = _check(user32.GetWindowDC(hwnd), "GetWindowDC")
-    hdc_mem = _check(gdi32.CreateCompatibleDC(hdc_win), "CreateCompatibleDC")
-    hbmp = _check(gdi32.CreateCompatibleBitmap(hdc_win, w, h), "CreateCompatibleBitmap")
+    hdc_mem = hbmp = previous = None
     try:
-        gdi32.SelectObject(hdc_mem, hbmp)
+        hdc_mem = _check(gdi32.CreateCompatibleDC(hdc_win), "CreateCompatibleDC")
+        hbmp = _check(gdi32.CreateCompatibleBitmap(hdc_win, w, h), "CreateCompatibleBitmap")
+        previous = _check(gdi32.SelectObject(hdc_mem, hbmp), 'SelectObject')
         flags = PW_RENDERFULLCONTENT | (PW_CLIENTONLY if client_only else 0)
         rendered = bool(user32.PrintWindow(hwnd, hdc_mem, flags))
 
@@ -520,6 +562,8 @@ def _capture_window_impl(hwnd: int, client_only: bool = False):
         bmi.bmiHeader.biCompression = 0  # BI_RGB
 
         buf = ctypes.create_string_buffer(w * h * 4)
+        gdi32.SelectObject(hdc_mem, previous)
+        previous = None
         _check(
             gdi32.GetDIBits(hdc_mem, hbmp, 0, h, buf, ctypes.byref(bmi), 0),
             "GetDIBits",
@@ -527,8 +571,12 @@ def _capture_window_impl(hwnd: int, client_only: bool = False):
         img = Image.frombuffer("RGB", (w, h), buf, "raw", "BGRX", 0, 1)
         return img, rendered
     finally:
-        gdi32.DeleteObject(hbmp)
-        gdi32.DeleteDC(hdc_mem)
+        if previous:
+            gdi32.SelectObject(hdc_mem, previous)
+        if hbmp:
+            gdi32.DeleteObject(hbmp)
+        if hdc_mem:
+            gdi32.DeleteDC(hdc_mem)
         user32.ReleaseDC(hwnd, hdc_win)
 
 
@@ -584,6 +632,12 @@ kernel32.CreateProcessW.argtypes = [
     ctypes.POINTER(STARTUPINFO), ctypes.POINTER(PROCESS_INFORMATION),
 ]
 kernel32.CreateProcessW.restype = wintypes.BOOL
+kernel32.CloseHandle.argtypes = [wintypes.HANDLE]
+kernel32.CloseHandle.restype = wintypes.BOOL
+kernel32.WaitForSingleObject.argtypes = [wintypes.HANDLE, wintypes.DWORD]
+kernel32.WaitForSingleObject.restype = wintypes.DWORD
+user32.GetDlgCtrlID.argtypes = [HWND]
+user32.GetDlgCtrlID.restype = ctypes.c_int
 
 # name -> HDESK handle for desktops we created
 _DESKTOPS: dict[str, int] = {}
@@ -662,13 +716,14 @@ def launch_on_desktop(name: str, command_line: str) -> dict[str, Any]:
     )
     _check(ok, f"CreateProcessW('{command_line}')")
     kernel32.CloseHandle(pi.hThread)
-    kernel32.CloseHandle(pi.hProcess)
     return {
+        "_process_handle": int(pi.hProcess),
         "desktop": name,
         "pid": int(pi.dwProcessId),
-        "command": command_line,
         "terminal_window": False,
-        "focus_stealing": False,
+        "status": "launched_unverified",
+        "verified": False,
+        "retry_safe": False,
     }
 
 
@@ -688,7 +743,10 @@ def list_desktop_windows(name: str) -> list[dict[str, Any]]:
         process_id = wintypes.DWORD()
         thread_id = user32.GetWindowThreadProcessId(hwnd, ctypes.byref(process_id))
         dpi = user32.GetDpiForWindow(hwnd)
-        text = _get_window_text(hwnd)
+        try:
+            text, text_error = _get_window_text(hwnd), None
+        except WinIOError as exc:
+            text, text_error = None, str(exc)
         r = wintypes.RECT()
         user32.GetWindowRect(hwnd, ctypes.byref(r))
         out.append(
@@ -698,6 +756,7 @@ def list_desktop_windows(name: str) -> list[dict[str, Any]]:
                 "thread_id": int(thread_id),
                 "dpi": int(dpi),
                 "title": text,
+                "text_error": text_error,
                 "class": _get_class_name(hwnd),
                 "width": r.right - r.left,
                 "height": r.bottom - r.top,
@@ -711,13 +770,15 @@ def list_desktop_windows(name: str) -> list[dict[str, Any]]:
 
 def close_desktop(name: str) -> dict[str, Any]:
     """Close our handle to the off-screen desktop (it is freed once no process uses it)."""
-    hdesk = _DESKTOPS.pop(name, None)
+    hdesk = _DESKTOPS.get(name)
     if hdesk is None:
         return {"name": name, "closed": False, "note": "not tracked"}
-    user32.CloseDesktop(hdesk)
-    cached = _XDESK_CACHE.pop(name, None)
+    _check(user32.CloseDesktop(hdesk), 'CloseDesktop')
+    del _DESKTOPS[name]
+    cached = _XDESK_CACHE.get(name)
     if cached:
-        user32.CloseDesktop(cached)
+        _check(user32.CloseDesktop(cached), 'CloseDesktop cached handle')
+        del _XDESK_CACHE[name]
     return {"name": name, "closed": True}
 
 

@@ -1,0 +1,27 @@
+{
+  "app": "Microsoft Edge",
+  "status": "passed",
+  "route": "hidden Win32 click/WM_CHAR; CDP read-only DOM geometry/state; localhost form POST exports JSON",
+  "validatedAt": "2026-11-11T14:54:49.995Z",
+  "rendererClass": "Chrome_RenderWidgetHostHWND",
+  "topClass": "Chrome_WidgetWin_1",
+  "browserVersion": "Edg/158.0.4370.16",
+  "resultText": "Exported total 87.5",
+  "exported": {
+    "quantity": 7,
+    "unitPrice": 12.5,
+    "total": 87.5
+  },
+  "fileReadbackVerified": true,
+  "screenshotCaptured": true,
+  "physicalInputUsed": false,
+  "cleanedUp": true,
+  "foreground": {
+    "samples": 139,
+    "foregroundChangesFromBaseline": 0,
+    "cursorChangesFromBaseline": 0,
+    "maximumSampleGapMs": 32,
+    "baselineWasVisible": true,
+    "scope": "sampling, not proof against sub-interval interference; user activity is not attributable"
+  }
+}

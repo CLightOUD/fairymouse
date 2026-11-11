@@ -1,0 +1,36 @@
+{
+  "app": "Windows Paint",
+  "status": "passed",
+  "validatedAt": "2026-11-11T14:56:49.347Z",
+  "physicalInputUsed": false,
+  "version": "11.2609.401.0",
+  "preexistingProcessCount": 0,
+  "samePidOnHiddenDesktop": true,
+  "diskVerification": {
+    "size": [
+      160,
+      320
+    ],
+    "pixelsMatch": true
+  },
+  "fileSaveVerified": true,
+  "screenshot": "D:\\Fairymouse\\tests\\.work\\paint-1794409009347\\paint.png",
+  "cleanedUp": true,
+  "afterExitVerification": {
+    "size": [
+      160,
+      320
+    ],
+    "pixelsMatch": true
+  },
+  "foregroundMonitor": {
+    "samples": 333,
+    "foregroundChanges": 0,
+    "focusChanges": 0,
+    "cursorChanges": 0,
+    "invalidSamples": 0,
+    "maximumSampleGapMs": 32,
+    "changeEvents": [],
+    "scope": "20 ms sampling; changes may be user activity; cannot exclude changes between samples"
+  }
+}

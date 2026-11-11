@@ -1,0 +1,24 @@
+{
+  "app": "Windows Notepad",
+  "status": "passed",
+  "validatedAt": "2026-11-11T14:54:38.958Z",
+  "launcherPidDifferent": true,
+  "editReadbackVerified": true,
+  "editClass": "RichEditD2DPT",
+  "observedTabCount": 20,
+  "fileSaveVerified": true,
+  "route": "hidden_act replace_text (EM_SETSEL/EM_REPLACESEL), hidden_semantic File/Save UIA menu, exact disk readback",
+  "otherTabsModified": false,
+  "saveAllUsed": false,
+  "physicalInputUsed": false,
+  "screenshotCaptured": true,
+  "cleanedUp": true,
+  "foreground": {
+    "samples": 381,
+    "foregroundChangesFromBaseline": 0,
+    "cursorChangesFromBaseline": 0,
+    "maximumSampleGapMs": 32,
+    "baselineWasVisible": true,
+    "scope": "sampling, not proof against sub-interval interference; user activity is not attributable"
+  }
+}

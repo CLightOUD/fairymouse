@@ -1,0 +1,12 @@
+{
+  "app": "Windows Calculator",
+  "status": "unsupported",
+  "validatedAt": "2026-11-11T14:43:19.735Z",
+  "physicalInputUsed": false,
+  "launched": false,
+  "entryPoint": "Calculator.App",
+  "version": "11.2607.0.0",
+  "processCount": 0,
+  "executable": "CalculatorApp.exe",
+  "reason": "Installed Calculator declares a UWP entry point. Shell/AppActivation cannot guarantee the requested hidden desktop, so no launch, calculation, screenshot, or foreground fallback was attempted"
+}

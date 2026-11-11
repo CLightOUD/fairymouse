@@ -1,0 +1,33 @@
+{
+  "format": "docx",
+  "status": "passed",
+  "validatedAt": "2026-11-11T14:48:09.535Z",
+  "version": "12,1,0,28043",
+  "hiddenWindowVerified": true,
+  "controlClasses": [
+    "OpusApp",
+    "bosa_sdm_Microsoft Office Word 11.0",
+    "MsoCommandBarDock",
+    "Qt5QWindowIcon",
+    "_WwF",
+    "_WwB",
+    "MsoCommandBar",
+    "_WwC",
+    "_WwG"
+  ],
+  "fileSaveVerified": true,
+  "cleanedUp": true,
+  "monitor": {
+    "samples": 1516,
+    "foregroundChanges": 0,
+    "focusChanges": 0,
+    "cursorChanges": 0,
+    "invalidSamples": 0,
+    "maximumSampleGapMs": 32,
+    "scope": "20 ms sampling; changes may be user activity; cannot exclude changes between samples"
+  },
+  "readbackAfterExit": {
+    "markerPresent": true,
+    "originalPreserved": true
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "app": "WPS Writer",
+  "status": "passed",
+  "validatedAt": "2026-11-11T14:54:56.070Z",
+  "preexistingProcessCount": 0,
+  "version": "12,1,0,28043",
+  "hiddenWindowVerified": true,
+  "editDelivery": {
+    "status": "posted",
+    "verified": false
+  },
+  "documentDirtyObserved": true,
+  "saveDelivery": {
+    "delivery": "delivered_unverified",
+    "mechanisms": [
+      "semantic_api"
+    ]
+  },
+  "fileSaveVerified": true,
+  "messageSaveDelivery": {
+    "status": "posted",
+    "verified": false
+  },
+  "messageSaveAttempted": true,
+  "cleanedUp": true,
+  "foregroundMonitor": {
+    "samples": 1622,
+    "maxGapMs": 32,
+    "observedWpsForeground": false,
+    "foregroundDifferentFromBaseline": 0,
+    "cursorDifferentFromBaseline": 0,
+    "scope": "20ms polling, not a continuous OS event trace; user changes are not attributed to automation"
+  },
+  "controlClasses": [
+    "OpusApp",
+    "bosa_sdm_Microsoft Office Word 11.0",
+    "MsoCommandBarDock",
+    "Qt5QWindowIcon",
+    "_WwF",
+    "_WwB",
+    "MsoCommandBar",
+    "_WwC",
+    "_WwG"
+  ],
+  "semanticElementCount": 209,
+  "semanticSaveAvailable": true,
+  "editRoute": "scoped hidden WM_CHAR to observed document canvas after posted client click",
+  "saveRoute": "observed UIA Save InvokePattern, then one posted click mapped from fresh Save bounds to native client coordinates"
+}
