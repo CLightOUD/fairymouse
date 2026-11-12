@@ -1,0 +1,62 @@
+{
+  "status": "business_passed_coexistence_inconclusive",
+  "date": "2026-11-12T19:29:36.713888+08:00",
+  "task": "Independent AI live-observation Notepad append/save/exit acceptance",
+  "execution": "All GUI actions chosen from live Fairymouse MCP responses using dedicated atomic mailbox. No predetermined Notepad script read. Only input file initialized externally; final contents saved through Notepad File > Save.",
+  "desktop": "FairyHidden-AI-NoteFinal-20261112",
+  "launchPid": 60696,
+  "observedGuiPid": 33768,
+  "hwnd": 398104,
+  "launchStatus": "launched_unverified; separate hidden_windows found GUI PID 33768, no relaunch",
+  "file": "D:\\Fairymouse\\tests\\.work\\ai-notepad-final-20261112\\note.txt",
+  "bytes": 86,
+  "sha256": "aa65ddb57c260652715ca3ac3bb42494d2e384d7e451b77562a931083c460851",
+  "expectedText": "Fairymouse 验收\r\n保留原文\r\nAI 独立验收完成 ✓ FAIRY_NOTE_FINAL_20261112\r\n",
+  "actualText": "Fairymouse 验收\r\n保留原文\r\nAI 独立验收完成 ✓ FAIRY_NOTE_FINAL_20261112\r\n",
+  "checks": {
+    "fullBytesExact": true,
+    "utf8NoBom": true,
+    "windowClosedVerified": true,
+    "desktopObservedEmpty": true,
+    "launchProcessExitedVerified": true,
+    "guiPidAbsentReadOnlyCheck": true,
+    "desktopReleased": true,
+    "transportInvalidRequestRejectedAndSessionSurvived": true
+  },
+  "transportInvalidRequestRejectedAndSessionSurvived": true,
+  "restoredTabs": "Restored unrelated tabs were visible in snapshot; only note.txt selected/edited/saved, no Save All or actions on other tabs. Window close preserved application session behavior.",
+  "observations": {
+    "mode": "coexist",
+    "samples": 5714,
+    "registeredProcesses": 3,
+    "observedDescendants": 17,
+    "registrationFailures": 0,
+    "unresolvedLaunchProcesses": 0,
+    "ancestryErrors": 0,
+    "targetForegroundSamples": 0,
+    "targetFocusSamples": 0,
+    "inputDesktopChanges": 0,
+    "foregroundChanges": 561,
+    "focusChanges": 561,
+    "cursorChanges": 5709,
+    "invalidSamples": 2,
+    "maximumSampleGapMs": 63,
+    "scope": "Read-only sampling; registered PID creation-time identities and sampled descendants. Previous samples are checked when targets register. Activity is not attributed to a human. Processes that start and exit between ancestry samples may be missed; pre-monitor launches and sub-sample interference are outside coverage.",
+    "assessment": {
+      "status": "inconclusive",
+      "userActivityObserved": true,
+      "scope": "Sampled registered process identities and observed descendants only; activity is not attributed to a human and sub-sample interference cannot be excluded."
+    }
+  },
+  "audit": "D:\\Fairymouse\\tests\\.work\\ai-notepad-final-20261112\\session.json",
+  "screenshot": "D:\\Fairymouse\\tests\\.work\\ai-notepad-final-20261112\\notepad-saved.png",
+  "requestCount": 18,
+  "limitations": [
+    "Single Notepad document path, not universal app compatibility.",
+    "Sampling may miss sub-sample events; cursor activity does not establish human attribution.",
+    "Launch PID is wrapper; GUI process exit separately checked by absence plus empty hidden desktop.",
+    "Two invalid monitor samples make coexistence assessment inconclusive despite zero observed target foreground/focus/input-desktop changes."
+  ],
+  "businessStatus": "passed",
+  "coexistenceStatus": "inconclusive"
+}

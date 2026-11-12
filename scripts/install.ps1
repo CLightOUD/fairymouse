@@ -30,9 +30,21 @@ if(Test-Path -LiteralPath $python){
         $previous = $env:UV_PYTHON_INSTALL_DIR
         try{
             $env:UV_PYTHON_INSTALL_DIR = Join-Path $root 'python-managed'
-            & $uv.Source python install 3.12.13
+            & $uv.Source python install 3.12.13 --no-bin --no-registry
             if($LASTEXITCODE -ne 0){throw 'Pinned Python download/install failed'}
-            & $uv.Source venv --python 3.12.13 (Join-Path $root 'runtime')
+            # uv emits UTF-8 paths; Windows PowerShell 5 otherwise decodes them using its legacy code page.
+            $previousEncoding = [Console]::OutputEncoding
+            try{
+                [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+                $managed = & $uv.Source python find 3.12.13 --managed-python --no-project
+            }finally{[Console]::OutputEncoding = $previousEncoding}
+            if($LASTEXITCODE -ne 0 -or -not $managed){throw 'Project-managed Python discovery failed'}
+            $managed = [System.IO.Path]::GetFullPath($managed.Trim())
+            $managedRoot = [System.IO.Path]::GetFullPath($env:UV_PYTHON_INSTALL_DIR).TrimEnd('\') + '\'
+            if(-not $managed.StartsWith($managedRoot, [System.StringComparison]::OrdinalIgnoreCase)){
+                throw 'Refusing Python outside this project-managed installation'
+            }
+            & $uv.Source venv --python $managed (Join-Path $root 'runtime')
         }finally{$env:UV_PYTHON_INSTALL_DIR=$previous}
     }
     if($LASTEXITCODE -ne 0){throw 'Virtual environment creation failed'}

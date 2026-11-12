@@ -8,6 +8,8 @@
 
 推荐流程：`hidden_create` → `hidden_launch` → `hidden_observe` → `hidden_act` → `hidden_observe(baseline=...)` → 关闭与释放。
 
+`hidden_create` 的 `already_exists` 区分新建与重新打开；它不表示桌面内没有其他应用或任务已经完成，仍需观察窗口与进程。
+
 - `hidden_observe(name, hwnd)` 返回控件与不透明 `ref`。`text` 做局部文字筛选，`limit` 限制输出，`truncated` 明确指出输出截断。最多缓存 32 个快照，每次最多 500 个控件、128K 文字字符；超限要求选择更小的父窗口。快照与引用有效期 60 秒，不持久化。
 - 引用绑定服务实例、桌面、进程创建时间、线程、HWND、父窗口、控件类/ID、位置尺寸与文字。操作前重新检查，变化或过期返回 `STALE_REF`，不会猜测另一个目标。不可验证控件的 `ref` 为 null。此检查降低句柄复用风险，但不能证明同进程中销毁重建、且所有观测属性完全相同的控件仍是原对象；检查与消息投递也不是操作系统原子事务。
 - `hidden_act(name, ref, action="set_text", text="...")` 写入并回读。`action="click"` 点击该控件客户区中心；可以同时提供 `expect_ref`、`expect_text`、`timeout_ms`，只执行一次动作，再等待指定控件文字。返回的 `action` 与 `verification` 分开表达。验证超时或目标变化不代表动作未执行，不自动重试。

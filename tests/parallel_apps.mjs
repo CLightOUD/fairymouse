@@ -3,15 +3,16 @@ import {spawn} from 'node:child_process';
 import {existsSync,mkdirSync,readFileSync,writeFileSync} from 'node:fs';
 import {dirname,join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {pause,startMonitor} from './app_harness.mjs';
+import {pause,startMonitor,assessCoexistence} from './app_harness.mjs';
 const root=dirname(dirname(fileURLToPath(import.meta.url)));
 const folder=join(root,'tests','.work','parallel-'+Date.now());
 const format=process.argv.includes('--docx')?'docx':'xlsx';
+const coexist=process.argv.includes('--coexist');
 const jobs=[{id:'edge',script:'edge_native_save.mjs',args:[]}];
 if(!process.argv.includes('--without-wps'))jobs.unshift({id:'wps',script:'wps_formats.mjs',args:['--format',format]});
 if(process.argv.includes('--calculator'))jobs.push({id:'calculator',script:'calculator_apps.mjs',args:[]});
 if(process.argv.includes('--paint'))jobs.push({id:'paint',script:'paint_apps.mjs',args:[]});
-const report={status:'skipped',validatedAt:new Date().toISOString(),format,
+const report={status:'skipped',validatedAt:new Date().toISOString(),format,monitorMode:coexist?'coexist':'strict',
  scope:'Independent MCP caller processes on distinct hidden desktops; tests exercise agent tool contracts, not an LLM benchmark.'};
 const running=[];let monitor;
 function records(id){const file=join(folder,id+'.jsonl');if(!existsSync(file))return [];return readFileSync(file,'utf8').split('\n').filter(Boolean).map(JSON.parse)}
@@ -19,14 +20,15 @@ function abort(){writeFileSync(join(folder,'abort.flag'),'')}
 try{
  if(!process.argv.includes('--run')){report.reason='Use --run to operate isolated real application instances'}
  else{
-  mkdirSync(folder,{recursive:true});monitor=await startMonitor(join(folder,'monitor'));
+  mkdirSync(folder,{recursive:true});monitor=await startMonitor(join(folder,'monitor'),{mode:coexist?'coexist':'strict',registryFolder:join(folder,'monitor-targets')});
   for(const job of jobs){
    const child=spawn(process.execPath,[join(root,'tests',job.script),'--run',...job.args],
-    {windowsHide:true,env:{...process.env,FAIRY_TEST_BARRIER:folder,FAIRY_TEST_CALLER:job.id,FAIRY_TEST_REPORT:join(folder,job.id+'-report.json')},stdio:['ignore','pipe','pipe']});
+    {windowsHide:true,env:{...process.env,FAIRY_TEST_BARRIER:folder,FAIRY_TEST_MONITOR_MODE:coexist?'coexist':'strict',FAIRY_TEST_CALLER:job.id,FAIRY_TEST_REPORT:join(folder,job.id+'-report.json')},stdio:['ignore','pipe','pipe']});
    const run={...job,child,exitCode:null,output:'',error:''};running.push(run);
    child.stdout.on('data',b=>run.output+=b);child.stderr.on('data',b=>run.error+=b);
    child.on('error',error=>{run.error+=error.message;run.exitCode=-1;abort()});
    child.on('exit',code=>{run.exitCode=code??-1});
+   if(coexist)await monitor.registerProcess(child.pid);
   }
   for(const stage of ['edit','save']){
    const until=Date.now()+115000;
@@ -82,7 +84,16 @@ finally{
  while(running.some(run=>run.exitCode===null)&&Date.now()<until)await pause(100);
  report.unfinishedCallers=running.filter(run=>run.exitCode===null).map(run=>run.id);
  for(const run of running){writeFileSync(join(folder,run.id+'.stdout.log'),run.output);writeFileSync(join(folder,run.id+'.stderr.log'),run.error)}
- if(monitor){try{report.foreground=await monitor.stop();report.interferenceObservationClear=['foregroundChanges','focusChanges','cursorChanges','invalidSamples'].every(k=>report.foreground[k]===0);if(report.status==='passed'&&!report.interferenceObservationClear){report.status='inconclusive';report.reason='Application tasks passed but desktop observations changed; cause is not attributed';process.exitCode=1}}catch(error){report.status='failed';report.monitorError=error.message;process.exitCode=1}}
- mkdirSync(join(root,'reports'),{recursive:true});writeFileSync(join(root,'reports','parallel-apps.json'),JSON.stringify(report,null,2));
+ if(monitor){try{
+  report.foreground=await monitor.stop();
+  if(coexist){
+   const collect=value=>!value||typeof value!=='object'?[]:[...(value.mode==='coexist'&&'samples' in value?[assessCoexistence(value)]:[]),...Object.values(value).flatMap(collect)];
+   report.coexistenceAssessments=[assessCoexistence(report.foreground),...(report.callers??[]).flatMap(c=>collect(c.evidence))];
+   report.interferenceObservationClear=report.coexistenceAssessments.length>=jobs.length+1&&report.coexistenceAssessments.every(a=>a.status==='observed_clear');
+   report.activityObserved=report.coexistenceAssessments.some(a=>a.userActivityObserved);
+  }else report.interferenceObservationClear=['foregroundChanges','focusChanges','cursorChanges','invalidSamples'].every(k=>report.foreground[k]===0);
+  if(report.status==='passed'&&!report.interferenceObservationClear){report.status='inconclusive';report.reason=coexist?'Tasks passed but registered-process observation coverage was incomplete':'Application tasks passed but desktop observations changed; cause is not attributed';process.exitCode=1}
+ }catch(error){report.status='failed';report.monitorError=error.message;process.exitCode=1}}
+ mkdirSync(join(root,'reports'),{recursive:true});writeFileSync(join(root,'reports',coexist?'parallel-coexist.json':'parallel-apps.json'),JSON.stringify(report,null,2));
  console.log(JSON.stringify(report));
 }

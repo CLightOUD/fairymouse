@@ -31,7 +31,7 @@ Fairymouse 是一个轻量的 Windows 后台操作工具组件，通过 MCP 接�
 
 ## 快速开始
 
-准备 Windows x64、Git、[Node.js](https://nodejs.org/) 和 [uv](https://docs.astral.sh/uv/getting-started/installation/)，确保 `node`、`uv` 在 PATH 中。本机验证使用 Node.js 24.14.0；其他版本尚未逐一验证。
+准备 Windows x64、Git、[Node.js](https://nodejs.org/) 和 [uv](https://docs.astral.sh/uv/getting-started/installation/)，确保 `node`、`uv` 在 PATH 中。本机验证使用 Node.js 24.14.0、uv 0.12.3；其他版本尚未逐一验证。
 
 在 PowerShell 中运行：
 
@@ -92,7 +92,9 @@ node scripts/configure.mjs --agents writer,reviewer
 
 Edge 回归中的 CDP 只读取几何与状态，实际输入和原生保存由 Fairymouse 执行。并发回归测试的是工具调用隔离与执行能力，不是大模型规划能力。
 
-验证记录包含前台窗口、焦点和鼠标采样。采样不能排除间隔内的瞬时变化，也不能自动区分用户活动与工具影响；[早期异常观察](reports/app-regression-observations.json) 单独保留。尚未完成第二台干净机器的安装回归。
+验证记录包含前台窗口、焦点和鼠标采样。采样不能排除间隔内的瞬时变化，也不能自动区分用户活动与工具影响；[早期异常观察](reports/app-regression-observations.json) 单独保留。同机中文空格路径、空缓存的 [全新安装验收](reports/clean-install.json) 已通过，第二台干净机器尚未验证。
+
+安装、真实 AI 决策和用户前台共存的测试方法见 [验收说明](docs/acceptance.md)。这些均为测试材料，不增加产品模型依赖；[共存并发报告](reports/parallel-coexist.json) 与原来的静止基线报告分别保存。
 
 ## 边界
 

@@ -1,0 +1,101 @@
+{
+  "validatedAt": "2026-11-12T11:30:27.246410+00:00",
+  "status": "business_tasks_passed_with_observation_limits",
+  "productChanges": [
+    "Project-local Python install without global bin or registry registration",
+    "UTF-8 managed-interpreter discovery under Windows PowerShell 5",
+    "Correct hidden_create new versus existing result"
+  ],
+  "runtimeDependenciesAdded": 0,
+  "toolCounts": {
+    "desktop": 26,
+    "hidden": 17
+  },
+  "verification": {
+    "pythonTestsPassed": 68,
+    "mcpAndHiddenFixturePassed": true,
+    "installFreshAndRepeatPassed": true,
+    "coordinatedCoexistencePassed": true
+  },
+  "aiTasks": [
+    {
+      "session": "ai-paint-20261112",
+      "calls": 25,
+      "businessAndCleanup": "passed",
+      "monitor": {
+        "samples": 8381,
+        "registeredProcesses": 2,
+        "targetForegroundSamples": 0,
+        "targetFocusSamples": 0,
+        "inputDesktopChanges": 0,
+        "invalidSamples": 0,
+        "maximumSampleGapMs": 63,
+        "assessment": {
+          "status": "observed_clear",
+          "userActivityObserved": true,
+          "scope": "Sampled registered process identities and observed descendants only; activity is not attributed to a human and sub-sample interference cannot be excluded."
+        }
+      }
+    },
+    {
+      "session": "ai-edge-20261112",
+      "calls": 38,
+      "businessAndCleanup": "passed",
+      "monitor": {
+        "samples": 10947,
+        "registeredProcesses": 9,
+        "targetForegroundSamples": 0,
+        "targetFocusSamples": 0,
+        "inputDesktopChanges": 0,
+        "invalidSamples": 4,
+        "maximumSampleGapMs": 63,
+        "assessment": {
+          "status": "inconclusive",
+          "userActivityObserved": true,
+          "scope": "Sampled registered process identities and observed descendants only; activity is not attributed to a human and sub-sample interference cannot be excluded."
+        }
+      }
+    },
+    {
+      "session": "ai-notepad-final-20261112",
+      "calls": 18,
+      "businessAndCleanup": "passed",
+      "monitor": {
+        "samples": 5714,
+        "registeredProcesses": 3,
+        "targetForegroundSamples": 0,
+        "targetFocusSamples": 0,
+        "inputDesktopChanges": 0,
+        "invalidSamples": 2,
+        "maximumSampleGapMs": 63,
+        "assessment": {
+          "status": "inconclusive",
+          "userActivityObserved": true,
+          "scope": "Sampled registered process identities and observed descendants only; activity is not attributed to a human and sub-sample interference cannot be excluded."
+        }
+      }
+    }
+  ],
+  "actualAiMutationOverlaps": [
+    {
+      "callers": [
+        "ai-paint-20261112",
+        "ai-edge-20261112"
+      ],
+      "tools": [
+        "hidden_semantic",
+        "hidden_click"
+      ],
+      "overlapMs": 3
+    }
+  ],
+  "userParticipation": "User explicitly confirmed continuing normal foreground mouse, typing and window use; monitor only establishes observed activity, not causation.",
+  "scope": "Same-machine isolated install, not second physical clean Windows. AI tasks selected live actions; no model dependency or production agent orchestrator. WPS already had running processes so this round used Notepad, Edge and Paint without disturbing WPS.",
+  "limits": [
+    "Edge AI run had four invalid samples; Notepad AI final run had two. Their continuous coexistence verdicts remain inconclusive, although task files and cleanup passed.",
+    "Paint AI run and separate coordinated Edge/Paint coexistence regression passed their sampled observation checks.",
+    "Initial Notepad test mailbox interruption and monitor gap are retained separately in ai-notepad-acceptance.json, not erased by later tests.",
+    "No sampling can rule out sub-interval interference; observed maximum sampling gap was 63 ms.",
+    "Temporary Edge profile may automatically sign in/sync and run extensions; no claim of account sandboxing."
+  ]
+}

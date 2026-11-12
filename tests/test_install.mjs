@@ -11,4 +11,11 @@ assert.notEqual(spawnSync(process.execPath,[configure,'--agents','same,same'],{w
 assert.notEqual(spawnSync(process.execPath,[configure,'--agents','../bad'],{windowsHide:true}).status,0);
 const plan=JSON.parse(execFileSync('powershell',['-NoProfile','-ExecutionPolicy','Bypass','-File',join(root,'scripts','install.ps1'),'-DryRun'],{encoding:'utf8',windowsHide:true}));
 assert.equal(plan.pythonVersion,'3.12.13');assert.ok(plan.lockExists);assert.ok(plan.clientConfiguration.startsWith('Not modified'));
-console.log('Configuration generation and installer dry-run checks passed.');
+const powershell=join(process.env.SystemRoot,'System32','WindowsPowerShell','v1.0','powershell.exe');
+const systemPath=[join(process.env.SystemRoot,'System32'),process.env.SystemRoot].join(';');
+for(const [path,message] of [[systemPath,/Node\.js is required/],[dirname(process.execPath)+';'+systemPath,/uv must already be installed/]]){
+ const missing=spawnSync(powershell,['-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',join(root,'scripts','install.ps1')],
+  {encoding:'utf8',windowsHide:true,env:{...process.env,PATH:path}});
+ assert.notEqual(missing.status,0);assert.match(missing.stderr,message);
+}
+console.log('Configuration generation, installer dry-run and missing-prerequisite checks passed.');

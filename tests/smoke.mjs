@@ -126,6 +126,9 @@ try{
   if(!conflict.isError||conflict.structuredContent.code!=='DESKTOP_OWNED')throw new Error('Cross-process ownership missing');
   const created=await peer.rpc('tools/call',{name:'hidden_create',arguments:{name:peerName}});
   if(created.isError)throw new Error('Independent desktop blocked');
+   if(created.structuredContent.already_exists!==false)throw new Error('New desktop incorrectly reported as existing');
+   const reopened=await peer.rpc('tools/call',{name:'hidden_create',arguments:{name:peerName}});
+   if(reopened.isError||reopened.structuredContent.already_exists!==true)throw new Error('Repeated desktop creation must report reopen');
   const peerFolder=join(folder,'peer');mkdirSync(peerFolder);
   const peerCall=async(tool,args)=>{const r=await peer.rpc('tools/call',{name:tool,arguments:args});if(r.isError)throw new Error(JSON.stringify(r));return r.structuredContent?.result??r.structuredContent};
   const peerLaunch=await peerCall('hidden_launch',{name:peerName,executable:join(root,'tests','.work','DesktopTrial.exe'),arguments:[peerFolder]});

@@ -1,0 +1,534 @@
+{
+  "schema_version": 1,
+  "test": "independent_ai_edge_native_save",
+  "date": "2026-11-12",
+  "decision_mode": "AI chose each action after live MCP observations; no pre-scripted UI procedure read",
+  "status": "passed_business_and_cleanup",
+  "source": "D:\\Fairymouse\\tests\\.work\\ai-edge-20261112\\source.html",
+  "target": "D:\\Fairymouse\\tests\\.work\\ai-edge-20261112\\saved-native.html",
+  "marker": "FAIRY_AI_EDGE_20261112_B7",
+  "browser": {
+    "profile": "D:\\Fairymouse\\tests\\.work\\ai-edge-20261112\\profile",
+    "main_pid": 16884,
+    "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+    "version": "158.0.4370.16"
+  },
+  "desktop": "fairyhidden-ai-edge-independent-20261112",
+  "ui_route": "dedicated Fairymouse hidden MCP mailbox",
+  "ui_actions": [
+    "Created hidden desktop and observed it empty",
+    "Launched separate user-data-dir browser and verified same-PID hidden window",
+    "Read local page via UIA and observed marker",
+    "Closed automatic sync information popup using WM_CLOSE",
+    "Selected source tab after automatic extension onboarding tabs appeared",
+    "Observed semantic settings-menu click without menu effect, then explicitly chose background posted coordinate click using observed UIA bounds",
+    "Invoked More tools and Save page as from fresh semantic refs",
+    "Set native save-dialog file name through UIA ValuePattern",
+    "Read back exact path with hidden_observe; clicked observed native Save button via hidden_act",
+    "Independently read saved target and checked marker/title/browser save comment",
+    "Observed save dialog closed",
+    "Closed browser window, then observed process still running",
+    "Opened one new window on same owned profile to invoke Close Microsoft Edge menu command",
+    "Verified launched browser process exited and hidden desktop had no windows",
+    "Released hidden desktop and wrote stop.flag"
+  ],
+  "verification": {
+    "title_matches": true,
+    "marker_matches": true,
+    "saved_exists": true,
+    "main_process_exited": true,
+    "browser_saved_from_url_comment": true,
+    "desktop_release_returned_closed": true,
+    "save_dialog_closed": true,
+    "target_directly_written_by_agent": false,
+    "sha256": "A1EB375603318A9B94C7FB0AA118DADEF9BFB71F33EFFCA46C0896DC5ABE3B9C",
+    "final_hidden_windows": 0,
+    "bytes": 416
+  },
+  "observed_issues": [
+    "Temporary profile automatically signed into existing Windows-linked Microsoft account and synchronized bookmarks/extensions; agent did not copy profile, sign in, or initiate synchronization. Sync informational popup was closed, not accepted using Got it. User-profile integrity was not independently proven.",
+    "A duplicate Close semantic ref was refused with AMBIGUOUS_TARGET; a stale popup HWND close was refused without delivery.",
+    "Settings menu semantic click returned completed_unverified but no menu appeared; explicit background message click opened it.",
+    "Window close did not exit Edge because background mode remained active. Native Close Microsoft Edge menu exited the owned process and removed all hidden windows."
+  ],
+  "physical_input_used": false,
+  "focus_activation_switch_requested": false,
+  "foreground_monitor": {
+    "mode": "coexist",
+    "samples": 10947,
+    "registeredProcesses": 9,
+    "observedDescendants": 135,
+    "registrationFailures": 0,
+    "unresolvedLaunchProcesses": 0,
+    "ancestryErrors": 0,
+    "targetForegroundSamples": 0,
+    "targetFocusSamples": 0,
+    "inputDesktopChanges": 0,
+    "foregroundChanges": 22,
+    "focusChanges": 22,
+    "cursorChanges": 10802,
+    "invalidSamples": 4,
+    "maximumSampleGapMs": 63,
+    "changeEvents": [
+      {
+        "at": 1794482505851,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482505872,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482505892,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506104,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506125,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506146,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506190,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506211,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506232,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506274,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506549,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506612,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506633,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506656,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506676,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506697,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506718,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506739,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506781,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506826,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506846,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482506869,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482507750,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482508419,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482508461,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482508483,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482508504,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482508609,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482508630,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482508672,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482509116,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482509137,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482509159,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482509180,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482509201,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482509243,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482509264,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482509307,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482509328,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482509349,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482509370,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482509391,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482509814,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482509836,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482509856,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515537,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515559,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515581,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515601,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515623,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515643,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515665,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515686,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515729,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515750,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515771,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515792,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515813,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515835,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515856,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515877,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515899,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515946,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482515967,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      }
+    ],
+    "scope": "Read-only sampling; registered PID creation-time identities and sampled descendants. Previous samples are checked when targets register. Activity is not attributed to a human. Processes that start and exit between ancestry samples may be missed; pre-monitor launches and sub-sample interference are outside coverage.",
+    "assessment": {
+      "status": "inconclusive",
+      "userActivityObserved": true,
+      "scope": "Sampled registered process identities and observed descendants only; activity is not attributed to a human and sub-sample interference cannot be excluded."
+    }
+  },
+  "mcp_request_count": 38,
+  "evidence_directory": "D:\\Fairymouse\\tests\\.work\\ai-edge-20261112",
+  "product_code_modified": false,
+  "commit_or_push": false,
+  "foreground_monitor_note": "Business and cleanup passed, but four invalid observations mean this AI run alone does not establish continuous no-interference coverage. The separate coordinated coexistence regression is recorded independently."
+}

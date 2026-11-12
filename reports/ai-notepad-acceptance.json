@@ -1,0 +1,518 @@
+{
+  "status": "passed",
+  "validatedAt": "2026-11-12T11:26:07.228989+00:00",
+  "app": "Windows Notepad",
+  "execution": "Root AI selected actions from live MCP observations; test-only transport did not encode an app workflow. Root had prior project context; this is not a blind benchmark.",
+  "fileReadbackExact": true,
+  "sha256": "483f8de096db4b3a86637ed80d106c5d7c4dd3aa2e6f822a1c455de30d1dbe42",
+  "originalPreserved": true,
+  "savedThroughUI": true,
+  "cleanupVerified": true,
+  "recovery": {
+    "trigger": "Test mailbox read partially written JSON and exited; fixed request error handling and used atomic request writes. Product MCP was not the source of this failure.",
+    "reobservedExistingWindow": true,
+    "editReplayed": false,
+    "saveAllUsed": false
+  },
+  "toolCalls": 14,
+  "monitors": [
+    {
+      "mode": "coexist",
+      "samples": 4389,
+      "registeredProcesses": 3,
+      "observedDescendants": 9,
+      "registrationFailures": 0,
+      "ancestryErrors": 0,
+      "targetForegroundSamples": 0,
+      "targetFocusSamples": 0,
+      "inputDesktopChanges": 0,
+      "foregroundChanges": 0,
+      "focusChanges": 0,
+      "cursorChanges": 4177,
+      "invalidSamples": 0,
+      "maximumSampleGapMs": 62,
+      "changeEvents": [
+        {
+          "at": 1794482481413,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481435,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481456,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481478,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481498,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481539,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481560,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481582,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481603,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481625,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481646,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481667,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481689,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481709,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481751,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481772,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481793,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481814,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481836,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481856,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481878,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481899,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481920,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481962,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482481982,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482482003,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482482025,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482482045,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482482066,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482483937,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482483959,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482483979,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482484002,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482484023,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482484064,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482484489,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487049,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487071,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487092,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487113,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487175,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487369,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487391,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487414,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487435,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487455,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487477,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487498,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487521,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487542,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487583,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487605,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487625,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487647,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487710,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487732,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487775,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487795,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482487817,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482495398,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482495418,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482495439,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482495690,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        },
+        {
+          "at": 1794482495730,
+          "foreground": false,
+          "focus": false,
+          "cursor": true,
+          "inputDesktop": false
+        }
+      ],
+      "scope": "Read-only sampling; registered PID creation-time identities and sampled descendants. Previous samples are checked when targets register. Activity is not attributed to a human. Processes that start and exit between ancestry samples may be missed; pre-monitor launches and sub-sample interference are outside coverage.",
+      "assessment": {
+        "status": "observed_clear",
+        "userActivityObserved": true,
+        "scope": "Sampled registered process identities and observed descendants only; activity is not attributed to a human and sub-sample interference cannot be excluded."
+      }
+    },
+    {
+      "mode": "coexist",
+      "samples": 2602,
+      "registeredProcesses": 2,
+      "observedDescendants": 14,
+      "registrationFailures": 0,
+      "unresolvedLaunchProcesses": 0,
+      "ancestryErrors": 0,
+      "targetForegroundSamples": 0,
+      "targetFocusSamples": 0,
+      "inputDesktopChanges": 0,
+      "foregroundChanges": 0,
+      "focusChanges": 0,
+      "cursorChanges": 0,
+      "invalidSamples": 0,
+      "maximumSampleGapMs": 63,
+      "changeEvents": [],
+      "scope": "Read-only sampling; registered PID creation-time identities and sampled descendants. Previous samples are checked when targets register. Activity is not attributed to a human. Processes that start and exit between ancestry samples may be missed; pre-monitor launches and sub-sample interference are outside coverage.",
+      "assessment": {
+        "status": "observed_clear",
+        "userActivityObserved": false,
+        "scope": "Sampled registered process identities and observed descendants only; activity is not attributed to a human and sub-sample interference cannot be excluded."
+      }
+    }
+  ],
+  "interferenceVerdict": "inconclusive_for_entire_task_due_to_monitor_restart_gap",
+  "scope": "Both monitored intervals observed no registered target foreground/focus or input-desktop change. User activity occurred in first interval. Unmonitored restart gap and sub-sample changes are not covered."
+}

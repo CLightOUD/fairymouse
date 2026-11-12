@@ -198,7 +198,7 @@ def _on_desktop_locked(name, operation, hwnd, timeout):
             # Create/open on the disposable thread: CreateDesktop can associate
             # its caller with the desktop, making CloseDesktop fail while a
             # persistent executor thread remains attached.
-            winio.create_desktop(name)
+            opened = winio.create_desktop(name)
             if not winio.user32.SetThreadDesktop(winio._DESKTOPS[name]):
                 raise OSError('Cannot attach worker to the specified hidden desktop')
             if hwnd is not None:
@@ -206,7 +206,7 @@ def _on_desktop_locked(name, operation, hwnd, timeout):
                 context = winio.user32.GetWindowDpiAwarenessContext(hwnd)
                 if context:
                     winio.user32.SetThreadDpiAwarenessContext(context)
-            result['value'] = operation()
+            result['value'] = opened if operation is None else operation()
         except Exception as exc:
             result['error'] = exc
         finally:
@@ -230,7 +230,9 @@ def _on_desktop_locked(name, operation, hwnd, timeout):
 def hidden_create(name: str) -> dict:
     """Create/reopen a hidden desktop named FairyHidden-<task>. Never switches the visible desktop."""
     name = _name(name)
-    return _on_desktop(name, lambda: winio.create_desktop(name))
+    # Return the first open/create result, not a second call which always says
+    # already_exists after the worker has just created the desktop.
+    return _on_desktop(name, None)
 
 
 @tool()

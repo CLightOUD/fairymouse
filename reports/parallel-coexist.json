@@ -1,0 +1,1303 @@
+{
+  "status": "passed",
+  "validatedAt": "2026-11-12T11:27:17.414Z",
+  "format": "xlsx",
+  "monitorMode": "coexist",
+  "scope": "Independent MCP caller processes on distinct hidden desktops; tests exercise agent tool contracts, not an LLM benchmark.",
+  "callers": [
+    {
+      "id": "edge",
+      "exitCode": 0,
+      "status": "passed",
+      "evidence": {
+        "app": "Microsoft Edge",
+        "status": "passed",
+        "route": "hidden Win32 messages plus hidden UIA browser context menu and native Save As; CDP read-only geometry/state",
+        "validatedAt": "2026-11-12T11:27:17.621Z",
+        "rendererClass": "Chrome_RenderWidgetHostHWND",
+        "topClass": "Chrome_WidgetWin_1",
+        "browserVersion": "Edg/158.0.4370.16",
+        "marker": "FAIRYMOUSE_NATIVE_SAVE_1794482837622",
+        "savedFileBytes": 599,
+        "nativeSaveDialogObserved": true,
+        "fileReadbackVerified": true,
+        "screenshotCaptured": true,
+        "physicalInputUsed": false,
+        "cleanedUp": true,
+        "foreground": {
+          "mode": "coexist",
+          "samples": 710,
+          "registeredProcesses": 8,
+          "observedDescendants": 80,
+          "registrationFailures": 0,
+          "unresolvedLaunchProcesses": 0,
+          "ancestryErrors": 0,
+          "targetForegroundSamples": 0,
+          "targetFocusSamples": 0,
+          "inputDesktopChanges": 0,
+          "foregroundChanges": 0,
+          "focusChanges": 0,
+          "cursorChanges": 341,
+          "invalidSamples": 0,
+          "maximumSampleGapMs": 63,
+          "changeEvents": [
+            {
+              "at": 1794482846870,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482846892,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482846916,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482846963,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482846986,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847008,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847030,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847054,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847076,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847098,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847121,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847187,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847209,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847231,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847253,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847275,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847298,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847321,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847344,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847394,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847419,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847445,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847750,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847774,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847825,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847848,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847871,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847895,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847919,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848238,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848261,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848287,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848310,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848333,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848357,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848381,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848404,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848448,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848471,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848494,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848607,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848650,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848672,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848694,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848717,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848740,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848762,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849143,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849189,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849211,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849234,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849416,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849439,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849482,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849733,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849756,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849779,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849802,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849825,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849847,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849894,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849918,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849942,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482849964,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            }
+          ],
+          "scope": "Read-only sampling; registered PID creation-time identities and sampled descendants. Previous samples are checked when targets register. Activity is not attributed to a human. Processes that start and exit between ancestry samples may be missed; pre-monitor launches and sub-sample interference are outside coverage.",
+          "assessment": {
+            "status": "observed_clear",
+            "userActivityObserved": true,
+            "scope": "Sampled registered process identities and observed descendants only; activity is not attributed to a human and sub-sample interference cannot be excluded."
+          }
+        }
+      },
+      "desktops": [
+        "FairyHidden-EdgeSave-16132"
+      ],
+      "mutations": 7
+    },
+    {
+      "id": "paint",
+      "exitCode": 0,
+      "status": "passed",
+      "evidence": {
+        "app": "Windows Paint",
+        "status": "passed",
+        "validatedAt": "2026-11-12T11:27:17.673Z",
+        "physicalInputUsed": false,
+        "version": "11.2609.401.0",
+        "preexistingProcessCount": 0,
+        "samePidOnHiddenDesktop": true,
+        "diskVerification": {
+          "size": [
+            160,
+            320
+          ],
+          "pixelsMatch": true
+        },
+        "fileSaveVerified": true,
+        "screenshot": "D:\\Fairymouse\\tests\\.work\\paint-1794482837673\\paint.png",
+        "cleanedUp": true,
+        "afterExitVerification": {
+          "size": [
+            160,
+            320
+          ],
+          "pixelsMatch": true
+        },
+        "foregroundMonitor": {
+          "mode": "coexist",
+          "samples": 384,
+          "registeredProcesses": 8,
+          "observedDescendants": 75,
+          "registrationFailures": 0,
+          "unresolvedLaunchProcesses": 0,
+          "ancestryErrors": 0,
+          "targetForegroundSamples": 0,
+          "targetFocusSamples": 0,
+          "inputDesktopChanges": 0,
+          "foregroundChanges": 0,
+          "focusChanges": 0,
+          "cursorChanges": 55,
+          "invalidSamples": 0,
+          "maximumSampleGapMs": 63,
+          "changeEvents": [
+            {
+              "at": 1794482846886,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482846910,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482846956,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482846978,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847001,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847022,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847046,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847069,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847092,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847114,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847162,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847205,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847228,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847250,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847272,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847296,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847318,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847368,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847412,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847436,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847745,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847792,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847816,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847840,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847863,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847886,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847910,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482847932,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848225,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848249,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848272,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            },
+            {
+              "at": 1794482848294,
+              "foreground": false,
+              "focus": false,
+              "cursor": true,
+              "inputDesktop": false
+            }
+          ],
+          "scope": "Read-only sampling; registered PID creation-time identities and sampled descendants. Previous samples are checked when targets register. Activity is not attributed to a human. Processes that start and exit between ancestry samples may be missed; pre-monitor launches and sub-sample interference are outside coverage.",
+          "assessment": {
+            "status": "observed_clear",
+            "userActivityObserved": true,
+            "scope": "Sampled registered process identities and observed descendants only; activity is not attributed to a human and sub-sample interference cannot be excluded."
+          }
+        }
+      },
+      "desktops": [
+        "FairyHidden-Paint-30656"
+      ],
+      "mutations": 3
+    }
+  ],
+  "overlappingMutationRequests": [
+    {
+      "callers": [
+        "edge",
+        "paint"
+      ],
+      "tools": [
+        "hidden_semantic",
+        "hidden_semantic"
+      ],
+      "overlapMs": 478
+    }
+  ],
+  "callersWithOverlappingMutations": [
+    "edge",
+    "paint"
+  ],
+  "maximumSimultaneousMutationCallers": 2,
+  "separateDesktops": true,
+  "unfinishedCallers": [],
+  "foreground": {
+    "mode": "coexist",
+    "samples": 724,
+    "registeredProcesses": 8,
+    "observedDescendants": 79,
+    "registrationFailures": 0,
+    "unresolvedLaunchProcesses": 0,
+    "ancestryErrors": 0,
+    "targetForegroundSamples": 0,
+    "targetFocusSamples": 0,
+    "inputDesktopChanges": 0,
+    "foregroundChanges": 0,
+    "focusChanges": 0,
+    "cursorChanges": 343,
+    "invalidSamples": 0,
+    "maximumSampleGapMs": 63,
+    "changeEvents": [
+      {
+        "at": 1794482846885,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482846908,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482846955,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482846978,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847002,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847024,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847046,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847069,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847092,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847114,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847161,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847206,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847229,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847252,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847275,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847298,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847321,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847369,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847413,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847437,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847749,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847799,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847822,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847845,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847869,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847893,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847915,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482847938,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848213,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848237,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848261,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848286,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848309,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848333,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848357,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848406,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848428,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848452,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848474,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848496,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848607,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848629,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848651,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848674,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848695,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848718,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848740,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482848763,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482849144,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482849189,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482849236,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482849439,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482849461,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482849736,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482849758,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482849780,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482849804,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482849850,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482849875,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482849898,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482849920,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482849943,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482849965,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      },
+      {
+        "at": 1794482850383,
+        "foreground": false,
+        "focus": false,
+        "cursor": true,
+        "inputDesktop": false
+      }
+    ],
+    "scope": "Read-only sampling; registered PID creation-time identities and sampled descendants. Previous samples are checked when targets register. Activity is not attributed to a human. Processes that start and exit between ancestry samples may be missed; pre-monitor launches and sub-sample interference are outside coverage.",
+    "assessment": {
+      "status": "observed_clear",
+      "userActivityObserved": true,
+      "scope": "Sampled registered process identities and observed descendants only; activity is not attributed to a human and sub-sample interference cannot be excluded."
+    }
+  },
+  "coexistenceAssessments": [
+    {
+      "status": "observed_clear",
+      "userActivityObserved": true,
+      "scope": "Sampled registered process identities and observed descendants only; activity is not attributed to a human and sub-sample interference cannot be excluded."
+    },
+    {
+      "status": "observed_clear",
+      "userActivityObserved": true,
+      "scope": "Sampled registered process identities and observed descendants only; activity is not attributed to a human and sub-sample interference cannot be excluded."
+    },
+    {
+      "status": "observed_clear",
+      "userActivityObserved": true,
+      "scope": "Sampled registered process identities and observed descendants only; activity is not attributed to a human and sub-sample interference cannot be excluded."
+    }
+  ],
+  "interferenceObservationClear": true,
+  "activityObserved": true
+}

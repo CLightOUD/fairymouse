@@ -1,0 +1,85 @@
+{
+  "task": "AI-directed Paint rotate 90 degrees clockwise and save PNG",
+  "date": "2026-11-12 19:25:12.343782+08:00",
+  "status": "passed",
+  "execution": "Independent agent selected each next UI action from live MCP responses; did not read predetermined Paint scripts; all GUI work through dedicated Fairymouse MCP mailbox. No physical input, focus, activation, or direct output-image write was requested.",
+  "paint_version": "11.2609.401.0",
+  "preflight_provenance": "Parent verified package executable/fullTrust and no existing Paint in normal user session; agent independently saw no Paint process in sandbox.",
+  "desktop": "FairyHidden-ai-paint-20261112",
+  "pid": 36272,
+  "hwnd": 71854,
+  "input": "D:\\Fairymouse\\tests\\.work\\ai-paint-20261112\\input.png",
+  "output": "D:\\Fairymouse\\tests\\.work\\ai-paint-20261112\\rotated.png",
+  "output_sha256": "c4cdbab289c650d16c340c978016e17ea153b89f5509d49d5e2655231879d090",
+  "output_bytes": 1351,
+  "input_size": [
+    320,
+    160
+  ],
+  "output_size": [
+    160,
+    320
+  ],
+  "compared_pixels": 51200,
+  "mismatch_pixels": 0,
+  "output_colors": [
+    {
+      "rgb": [
+        20,
+        40,
+        220
+      ],
+      "count": 25600
+    },
+    {
+      "rgb": [
+        220,
+        20,
+        40
+      ],
+      "count": 25600
+    }
+  ],
+  "checks": {
+    "input_size_correct": true,
+    "output_size_correct": true,
+    "clockwise_pixel_exact": true,
+    "top_red": true,
+    "bottom_blue": true,
+    "process_exit_verified": true,
+    "desktop_released": true,
+    "all_mcp_calls_without_error": true
+  },
+  "independent_verification": "Read PNG with Pillow after MCP process_exited verified; compared all output pixels to in-memory clockwise transpose of untouched input; no expected image saved.",
+  "visual_evidence": "D:\\Fairymouse\\tests\\.work\\ai-paint-20261112\\paint-saved.png",
+  "audit": "D:\\Fairymouse\\tests\\.work\\ai-paint-20261112\\session.json",
+  "mcp_call_count": 25,
+  "observation": {
+    "mode": "coexist",
+    "samples": 8381,
+    "registeredProcesses": 2,
+    "observedDescendants": 36,
+    "registrationFailures": 0,
+    "unresolvedLaunchProcesses": 0,
+    "ancestryErrors": 0,
+    "targetForegroundSamples": 0,
+    "targetFocusSamples": 0,
+    "inputDesktopChanges": 0,
+    "foregroundChanges": 0,
+    "focusChanges": 0,
+    "cursorChanges": 8106,
+    "invalidSamples": 0,
+    "maximumSampleGapMs": 63,
+    "scope": "Read-only sampling; registered PID creation-time identities and sampled descendants. Previous samples are checked when targets register. Activity is not attributed to a human. Processes that start and exit between ancestry samples may be missed; pre-monitor launches and sub-sample interference are outside coverage.",
+    "assessment": {
+      "status": "observed_clear",
+      "userActivityObserved": true,
+      "scope": "Sampled registered process identities and observed descendants only; activity is not attributed to a human and sub-sample interference cannot be excluded."
+    }
+  },
+  "limitations": [
+    "One successful path on this Paint version and two-color input; not all Paint operations.",
+    "Monitor sampling does not prove absence of sub-sample interference or attribute cursor activity to a person.",
+    "Launch verified only a same-PID helper window; main Paint HWND was separately observed before any edit."
+  ]
+}

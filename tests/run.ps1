@@ -23,6 +23,8 @@ $node=(Get-Command node -ErrorAction Stop).Source
 if($LASTEXITCODE -ne 0){throw 'Desktop protocol tests failed'}
 & $node (Join-Path $PSScriptRoot 'test_install.mjs')
 if($LASTEXITCODE -ne 0){throw 'Installation tests failed'}
+& $node (Join-Path $PSScriptRoot 'test_app_harness.mjs')
+if($LASTEXITCODE -ne 0){throw 'Application monitor contract tests failed'}
 & $node (Join-Path $PSScriptRoot 'smoke.mjs') $before.foreground.ToString()
 if($LASTEXITCODE -ne 0){throw 'MCP smoke test failed'}
 & (Join-Path $root 'runtime\Scripts\python.exe') -B -c "from PIL import Image; im=Image.open(r'$root\reports\hidden-test.png'); im.load(); assert max(im.size)<=320; assert any(lo!=hi for lo,hi in im.convert('RGB').getextrema()), 'Blank fixture screenshot'"

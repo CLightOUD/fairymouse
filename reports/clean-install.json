@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "validatedAt": "2026-11-12T11:19:34.985Z",
+  "scope": "Same-machine fresh source export, Unicode/space path, empty dedicated uv cache and Python directory; not a second clean Windows machine.",
+  "checks": {
+    "freshRuntimeAndCache": true,
+    "unicodeAndSpacePath": true,
+    "missingNodeDiagnosed": true,
+    "missingUvDiagnosed": true,
+    "missingPrerequisitesDoNotCreateRuntime": true,
+    "freshDownloadAndInstall": true,
+    "projectManagedInterpreter": true,
+    "externalPythonDirectoriesUntouched": true,
+    "repeatInstallPreservesVenv": true,
+    "diagnosticsPassed": true,
+    "generatedConfigurationPortable": true
+  },
+  "failures": [],
+  "sourceCommit": "333b0b4a6ad333edecccee25bd4d31d30982b26f",
+  "installerSha256": "e4e06cf1fa0693ebdde24ebd73b7b5b7e5f43da7c6ddda2d4cb1e6670a248c10",
+  "node": "v24.14.0",
+  "uv": "uv 0.12.3 (507230998 2026-08-07 x86_64-pc-windows-msvc)",
+  "firstInstallMs": 16138,
+  "repeatInstallMs": 1012,
+  "mcp": {
+    "desktop": {
+      "tools": 26,
+      "statusPassed": true
+    },
+    "hidden": {
+      "tools": 17,
+      "statusPassed": true
+    }
+  }
+}
