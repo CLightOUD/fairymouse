@@ -1,17 +1,17 @@
 ﻿{
     "before":  {
-                   "utc":  "2026-11-14T02:35:46.2549151Z",
+                   "utc":  "2026-11-14T02:47:56.4942150Z",
                    "foreground":  1970508,
-                   "x":  1103,
-                   "y":  692,
+                   "x":  1222,
+                   "y":  1002,
                    "cursorReadable":  true
                },
     "foregroundUnchanged":  true,
     "after":  {
-                  "utc":  "2026-11-14T02:35:56.5821674Z",
+                  "utc":  "2026-11-14T02:48:07.6058440Z",
                   "foreground":  1970508,
-                  "x":  1103,
-                  "y":  692,
+                  "x":  645,
+                  "y":  983,
                   "cursorReadable":  true
               }
 }

@@ -22,6 +22,35 @@ class AccountingTests(unittest.TestCase):
         self.assertTrue(eligible_child(200,200))
         self.assertTrue(eligible_child(200,300))
 
+    def test_stale_snapshot_does_not_reopen_an_exited_retained_child(self):
+        tracker = resource.Tracker()
+        tracker.items = {(1, 100): {'handle': 111}, (2, 200): {'handle': 222}}
+        with patch.object(resource, 'process_rows', return_value=[(2, 1, 'child.exe')]), \
+             patch.object(resource.K, 'WaitForSingleObject', side_effect=lambda h, _: 258 if h == 111 else 0), \
+             patch.object(resource.K, 'OpenProcess', return_value=None) as opened:
+            tracker.scan()
+        opened.assert_not_called()
+        self.assertEqual(tracker.discovery_misses, 0)
+
+    def test_retained_exited_parent_still_identifies_a_new_descendant(self):
+        tracker = resource.Tracker()
+        tracker.items = {(1, 100): {'handle': 111}}
+        with patch.object(resource, 'process_rows', return_value=[(3, 1, 'child.exe')]), \
+             patch.object(resource.K, 'WaitForSingleObject', return_value=0), \
+             patch.object(tracker, 'register', return_value=False) as register:
+            tracker.scan()
+        register.assert_called_once_with(3, (1, 100))
+
+    def test_unseen_child_open_failure_remains_a_measurement_gap(self):
+        tracker = resource.Tracker()
+        tracker.items = {(1, 100): {'handle': 111}}
+        with patch.object(resource, 'process_rows', return_value=[(3, 1, 'child.exe')]), \
+             patch.object(resource.K, 'OpenProcess', return_value=None), \
+             patch.object(resource.ctypes, 'get_last_error', return_value=5):
+            tracker.scan()
+        self.assertEqual(tracker.discovery_misses, 1)
+        self.assertEqual(tracker.discovery_failures[0]['win32Error'], 5)
+
     def test_measurement_and_discovery_failure_still_close_real_child_stdin(self):
         # A real, windowless child waits for EOF. Broken statistics must neither
         # strand it nor turn missing measurements into a passing report.

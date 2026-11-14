@@ -16,7 +16,7 @@ function step(label,command,argv){
  writeFileSync(join(folder,label+'.stdout.log'),result.stdout??'');writeFileSync(join(folder,label+'.stderr.log'),result.stderr??'');
  report.steps.push({name:label,exitCode:result.status,elapsedMs:Date.now()-started,error:result.error?.message});
  console.log(label+': '+(result.status===0?'passed':'FAILED'));
- if(result.status!==0)throw new Error(label+': '+(result.error?.message??result.stderr??result.stdout).slice(-4000));
+ if(result.status!==0)throw new Error(label+': '+(result.error?.message||result.stderr||result.stdout||'No diagnostic output').slice(-4000));
  return result.stdout;
 }
 function scripts(dir){return readdirSync(join(root,dir),{withFileTypes:true}).flatMap(e=>e.isDirectory()?(e.name.startsWith('.')||e.name==='__pycache__'?[]:scripts(join(dir,e.name))):/\.(mjs|py)$/.test(e.name)?[join(dir,e.name)]:[])}

@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "validatedAt": "2026-11-14T02:34:45.586Z",
+  "validatedAt": "2026-11-14T02:47:02.685Z",
   "scope": "Same-machine fresh source export, Unicode/space path, empty dedicated uv cache and Python directory; not a second clean Windows machine.",
   "checks": {
     "freshRuntimeAndCache": true,
@@ -16,12 +16,13 @@
     "generatedConfigurationPortable": true
   },
   "failures": [],
-  "sourceCommit": "d7d82fdd966413d42afa4e47fe710acf3ed64cf8",
+  "sourceCommit": "12c2968c0bbc2ed4ae3e07517de0f3ebeb2cd3c8",
   "installerSha256": "e4e06cf1fa0693ebdde24ebd73b7b5b7e5f43da7c6ddda2d4cb1e6670a248c10",
+  "workerBootstrapSha256": "ea473b18729e05b9cb0eb6b08c04391fd7a00af02793e69522d749d6757fff39",
   "node": "v24.14.0",
   "uv": "uv 0.12.3 (507230998 2026-08-07 x86_64-pc-windows-msvc)",
-  "firstInstallMs": 16499,
-  "repeatInstallMs": 886,
+  "firstInstallMs": 14047,
+  "repeatInstallMs": 1147,
   "mcp": {
     "desktop": {
       "tools": 26,
@@ -29,7 +30,8 @@
     },
     "hidden": {
       "tools": 17,
-      "statusPassed": true
+      "statusPassed": true,
+      "workerLifecyclePassed": true
     }
   }
 }

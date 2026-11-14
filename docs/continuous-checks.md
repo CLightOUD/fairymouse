@@ -2,7 +2,7 @@
 
 [返回首页](../README.md)
 
-这些工具仅用于开发验证。生产服务、26 / 17 个 MCP 工具和运行依赖保持不变。
+这些检查工具仅用于开发验证，不增加运行依赖或 MCP 入口。
 
 ## 自动检查
 
@@ -20,9 +20,11 @@ pwsh -NoProfile -File tests/ci.ps1 -FreshInstall
 
 CI 不启动 WPS、Edge、画图或用户文档，不把托管 Windows runner 的通过当成 Windows 11 应用兼容性或真人共存证明。本机完整回归仍运行 `tests/run.ps1`，真实应用按需显式追加原有参数。
 
-当前运行的摘要、日志与资源报告位于 `tests/.work/ci/`，云端作为 artifact 保留 7 天，不上传个人应用截图、配置或其他历史报告。任一阶段失败则任务失败；资源数值本身没有虚构的通用合格阈值。工作流静态检查和本地同命令验证不等于 GitHub 实际运行通过；首次推送后需查看真实 Actions 结果。
+当前运行的摘要、日志与资源报告位于 `tests/.work/ci/`，云端作为 artifact 保留 7 天，不上传个人应用截图、配置或其他历史报告。任一阶段失败则任务失败；资源数值本身没有虚构的通用合格阈值。工作流静态检查和本地同命令验证不等于 GitHub 实际运行通过；每次推送后须核对该提交的 [Actions 结果](https://github.com/CLightOUD/fairymouse/actions/workflows/windows.yml)。
 
-本轮 [本地验证汇总](../reports/windows-checks-local.json) 记录了两版 PowerShell 的执行结果、82 项 Python 测试、完整隐藏桌面回归、只读监测边界测试，以及被测代码的 SHA-256；云端执行明确标为 `not_run`。
+首次 [本地验证汇总](../reports/windows-checks-local.json) 记录了两版 PowerShell 的执行结果、当时的 82 项 Python 测试、完整隐藏桌面回归、只读监测边界测试，以及被测代码的 SHA-256；该历史记录早于首次推送，云端执行标为 `not_run`。
+
+首次云端运行暴露了全新 Python 环境中的 worker 启动问题：虚拟环境的 `pythonw` 转发器会增加一层进程，而 multiprocessing 将通信句柄交给直接子进程。现在使用同一套 Python 的真实无窗口解释器，子进程导入路径仍由 spawn 恢复。干净安装验收和无界面契约测试均实际创建、读取、释放空隐藏桌面，避免仅凭服务握手判定可用。
 
 ## 无效采样诊断
 
@@ -59,3 +61,5 @@ node tests/test_app_harness.mjs --live
 私有提交是已提交的私有内存，不等于常驻物理内存；工作集相加可能重复计算共享页。表中的“单服务”是单条路线，不是同时启用两条路线的总开销。3 秒空闲区间内 CPU 增量为零，只表示该短区间与系统计时精度下的观测，不表示永远零占用。
 
 进程通过 PID、创建时间与保留句柄确认身份；退出后检查已观察服务进程和句柄是否清空。无法观测的进程、测量失败和清理残留均不能算通过；极短命、未被扫描捕获的进程仍属于覆盖边界。性能暂不设跨机器固定门槛，先积累同环境基线，再判断回归。
+
+扫描器也保留已退出进程的身份，避免对旧快照中的已知进程重复打开，并继续发现父进程退出后的存活子进程。未观测子进程的打开失败仍记录为缺口，附带 Win32 错误码，不通过忽略缺口放宽检查。保留句柄期间 PID 不会复用，依据 [Windows 进程标识文档](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_information)。

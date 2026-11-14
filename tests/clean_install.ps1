@@ -18,6 +18,8 @@ Expand-Archive -LiteralPath $archive -DestinationPath $checkout
 foreach($file in @('install.ps1','doctor.mjs','configure.mjs')){
     Copy-Item -LiteralPath (Join-Path $root "scripts\$file") -Destination (Join-Path $checkout "scripts\$file")
 }
+# Include the candidate worker bootstrap fix before it is committed.
+Copy-Item -LiteralPath (Join-Path $root 'hidden\recovery.py') -Destination (Join-Path $checkout 'hidden\recovery.py')
 $runner = Join-Path $folder 'acceptance.mjs'
 $source = @'
 import assert from 'node:assert/strict';
@@ -64,7 +66,18 @@ async function mcp(entry,statusTool){
   child.stdin.write(JSON.stringify({jsonrpc:'2.0',method:'notifications/initialized'})+'\n');
   const list=await rpc('tools/list');assert.ok(list.tools.some(tool=>tool.name===statusTool));
   const status=await rpc('tools/call',{name:statusTool,arguments:{}});assert.ok(!status.isError,JSON.stringify(status));
-  return {tools:list.tools.length,statusPassed:true};
+  const result={tools:list.tools.length,statusPassed:true};
+  if(statusTool==='hidden_status'){
+   const name='FairyHidden-clean-install-'+process.pid;
+   const call=(name,args)=>rpc('tools/call',{name,arguments:args});
+   const created=await call('hidden_create',{name});assert.equal(created.isError,false,JSON.stringify(created));
+   const windows=await call('hidden_windows',{name});assert.equal(windows.isError,false,JSON.stringify(windows));
+   assert.deepEqual(windows.structuredContent.result,[]);
+   const released=await call('hidden_release',{name});assert.equal(released.isError,false,JSON.stringify(released));
+   assert.equal(released.structuredContent.closed,true);
+   result.workerLifecyclePassed=true;
+  }
+  return result;
  }finally{
   child.stdin.end();
   const code=await new Promise(resolve=>{if(child.exitCode!==null)return resolve(child.exitCode);const timer=setTimeout(()=>{child.kill();resolve(null)},5000);child.once('exit',code=>{clearTimeout(timer);resolve(code)})});
@@ -75,6 +88,7 @@ async function mcp(entry,statusTool){
 try{
  report.sourceCommit=execFileSync('git',['-C',root,'rev-parse','HEAD'],{encoding:'utf8',windowsHide:true}).trim();
  report.installerSha256=createHash('sha256').update(readFileSync(installer)).digest('hex');
+ report.workerBootstrapSha256=createHash('sha256').update(readFileSync(join(checkout,'hidden','recovery.py'))).digest('hex');
  report.node=process.version;
  report.uv=execFileSync('uv',['--version'],{encoding:'utf8',windowsHide:true}).trim();
  assert.ok(!existsSync(join(checkout,'runtime'))&&!existsSync(join(checkout,'python'))&&!existsSync(join(checkout,'python-managed'))&&!existsSync(env.UV_CACHE_DIR));

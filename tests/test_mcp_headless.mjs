@@ -34,6 +34,12 @@ async function verify(entry,route,count){
    assert.equal((await call('hidden_create',{name:'FairyHidden-headless-'+process.pid})).structuredContent.code,'PAUSED');
    assert.equal((await call('hidden_status')).isError,false);
    await call('hidden_control',{action:'resume'});
+   const name='FairyHidden-headless-'+process.pid;
+   const created=await call('hidden_create',{name});assert.equal(created.isError,false,JSON.stringify(created));
+   const windows=await call('hidden_windows',{name});assert.equal(windows.isError,false,JSON.stringify(windows));
+   assert.deepEqual(windows.structuredContent.result,[]);
+   const released=await call('hidden_release',{name});assert.equal(released.isError,false,JSON.stringify(released));
+   assert.equal(released.structuredContent.closed,true);
   }else{
    for(const forbidden of ['desktop_press','desktop_focus_window','desktop_mouse_click','desktop_restore'])assert.ok(!list.tools.some(t=>t.name===forbidden));
    assert.equal((await call('desktop_press',{key:'a'})).isError,true);
@@ -47,4 +53,4 @@ async function verify(entry,route,count){
 }
 await verify('../desktop/background-mcp.mjs','desktop',26);
 await verify('../hidden/launch.mjs','hidden',17);
-console.log('Headless MCP handshake, allowlist, pause and clean EOF exit passed.');
+console.log('Headless MCP handshake, allowlist, pause, native worker lifecycle and clean EOF exit passed.');

@@ -117,6 +117,7 @@ class Tracker:
         self.items = {}
         self.roots = set()
         self.discovery_misses = 0
+        self.discovery_failures = []
 
     def register(self, pid, parent=None, root=False):
         handle = K.OpenProcess(QUERY | SYNCHRONIZE | 0x10, False, pid)
@@ -125,6 +126,9 @@ class Tracker:
             if root:
                 raise ctypes.WinError(ctypes.get_last_error())
             self.discovery_misses += 1
+            if len(self.discovery_failures) < 32:
+                self.discovery_failures.append({'pid': pid, 'parent': parent,
+                    'stage': 'OpenProcess', 'win32Error': ctypes.get_last_error()})
             return False
         try:
             created, _ = times(handle)
@@ -149,12 +153,14 @@ class Tracker:
     def scan(self):
         rows = process_rows()
         for _ in range(12):
-            live = {key[0]: key for key, item in self.items.items()
-                    if K.WaitForSingleObject(item['handle'], 0) == 258}
+            # Retained handles keep even exited process IDs from being reused.
+            # A stale snapshot row is not a new child; exited parents can still
+            # have living descendants that we have not discovered yet.
+            known = {key[0]: key for key in self.items}
             added = False
             for pid, ppid, _ in rows:
-                if pid not in live and ppid in live:
-                    added = self.register(pid, live[ppid]) or added
+                if pid not in known and ppid in known:
+                    added = self.register(pid, known[ppid]) or added
             if not added:
                 return
         raise RuntimeError('Unexpected process-tree depth')
@@ -386,6 +392,7 @@ def cleanup_scenario(tracker, clients, desktops, result):
             'handlesBeforeShutdown': before['handleCountSum'] if before else None,
             'handlesAfterShutdown': after['handleCountSum'] if after else None,
             'discoveryMisses': tracker.discovery_misses,
+            'discoveryFailures': tracker.discovery_failures,
             'rootExitCodes': [client.process.poll() for client in clients]}
         try:
             tracker.close()
@@ -501,7 +508,7 @@ def main():
         args.output.write_text(json.dumps(report, indent=2)+'\n', encoding='utf-8')
         print(json.dumps({'status': report['status'], 'report': str(args.output),
                           'elapsedSeconds': report['elapsedSeconds'],
-                          'scenarios': [{'route':s['route'],'agents':s['agents'],'status':s['status']} for s in report['scenarios']]}))
+                          'scenarios': [{key:s[key] for key in ('route','agents','status','error','cleanupErrors') if key in s} for s in report['scenarios']]}))
     return 0 if report['status'] == 'passed' else 1
 
 

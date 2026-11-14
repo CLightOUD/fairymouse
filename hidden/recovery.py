@@ -91,7 +91,11 @@ class NativeWorker:
         restore = {}
         if self.process is None or not self.process.is_alive():
             self.close()
-            windowless = Path(sys.executable).with_name('pythonw.exe')
+            # multiprocessing duplicates handles into its direct child. A venv
+            # pythonw redirector can create another process, losing those handles.
+            # Use the real windowless interpreter; spawn restores our sys.path,
+            # including the locked venv packages, before importing the worker.
+            windowless = Path(sys._base_executable).with_name('pythonw.exe')
             if not windowless.is_file():
                 raise RuntimeError('RUNTIME_MISSING: pythonw.exe is required for a windowless worker')
             mp.set_executable(str(windowless))
