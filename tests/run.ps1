@@ -1,5 +1,6 @@
-param([switch]$RealApps, [switch]$ParallelApps)
+param([switch]$RealApps, [switch]$ParallelApps, [switch]$Headless)
 $ErrorActionPreference='Stop'
+if($Headless -and ($RealApps -or $ParallelApps)){throw 'Headless cannot be combined with real GUI application tests'}
 $root=Split-Path $PSScriptRoot -Parent
 & (Join-Path $root 'runtime\Scripts\python.exe') -B (Join-Path $PSScriptRoot 'test_reliability.py')
 if($LASTEXITCODE -ne 0){throw 'Reliability regression tests failed'}
@@ -11,13 +12,12 @@ if($LASTEXITCODE -ne 0){throw 'Control tests failed'}
 if($LASTEXITCODE -ne 0){throw 'Hidden semantic bridge tests failed'}
 & (Join-Path $root 'runtime\Scripts\python.exe') -B (Join-Path $PSScriptRoot 'test_recovery.py')
 if($LASTEXITCODE -ne 0){throw 'Worker recovery tests failed'}
+& (Join-Path $root 'runtime\Scripts\python.exe') -B (Join-Path $PSScriptRoot 'test_foreground_probe.py')
+if($LASTEXITCODE -ne 0){throw 'Foreground sampling diagnostic tests failed'}
+& (Join-Path $root 'runtime\Scripts\python.exe') -B (Join-Path $PSScriptRoot 'test_resource_usage.py')
+if($LASTEXITCODE -ne 0){throw 'Resource measurement tests failed'}
 $scratch=Join-Path $PSScriptRoot '.work'
 New-Item -ItemType Directory -Path $scratch -Force | Out-Null
-$fixture=Join-Path $scratch 'DesktopTrial.exe'
-& "$env:WINDIR\Microsoft.NET\Framework64\v4.0.30319\csc.exe" /nologo /target:winexe /reference:System.Windows.Forms.dll /reference:System.Drawing.dll ("/out:"+$fixture) (Join-Path $PSScriptRoot 'DesktopTrial.cs')
-if($LASTEXITCODE -ne 0){throw 'Fixture build failed'}
-Add-Type -Path (Join-Path $PSScriptRoot 'TrialNative.cs')
-$before=[TrialNative]::Read()
 $node=(Get-Command node -ErrorAction Stop).Source
 & $node (Join-Path $PSScriptRoot 'test_protocol.mjs')
 if($LASTEXITCODE -ne 0){throw 'Desktop protocol tests failed'}
@@ -25,6 +25,17 @@ if($LASTEXITCODE -ne 0){throw 'Desktop protocol tests failed'}
 if($LASTEXITCODE -ne 0){throw 'Installation tests failed'}
 & $node (Join-Path $PSScriptRoot 'test_app_harness.mjs')
 if($LASTEXITCODE -ne 0){throw 'Application monitor contract tests failed'}
+& $node (Join-Path $PSScriptRoot 'test_mcp_headless.mjs')
+if($LASTEXITCODE -ne 0){throw 'Headless MCP transport tests failed'}
+if($Headless){
+    'Headless contracts passed. Real GUI, foreground interference and screenshots are not covered.'
+    return
+}
+$fixture=Join-Path $scratch 'DesktopTrial.exe'
+& "$env:WINDIR\Microsoft.NET\Framework64\v4.0.30319\csc.exe" /nologo /target:winexe /reference:System.Windows.Forms.dll /reference:System.Drawing.dll ("/out:"+$fixture) (Join-Path $PSScriptRoot 'DesktopTrial.cs')
+if($LASTEXITCODE -ne 0){throw 'Fixture build failed'}
+Add-Type -Path (Join-Path $PSScriptRoot 'TrialNative.cs')
+$before=[TrialNative]::Read()
 & $node (Join-Path $PSScriptRoot 'smoke.mjs') $before.foreground.ToString()
 if($LASTEXITCODE -ne 0){throw 'MCP smoke test failed'}
 & (Join-Path $root 'runtime\Scripts\python.exe') -B -c "from PIL import Image; im=Image.open(r'$root\reports\hidden-test.png'); im.load(); assert max(im.size)<=320; assert any(lo!=hi for lo,hi in im.convert('RGB').getextrema()), 'Blank fixture screenshot'"

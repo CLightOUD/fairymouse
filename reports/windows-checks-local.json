@@ -1,0 +1,123 @@
+{
+  "validatedAt": "2026-11-14T02:36:30.6541032Z",
+  "status": "passed",
+  "scope": "Local Windows 11 working-tree validation. Cloud GitHub Actions has not run; no new real-application or human-coexistence acceptance is claimed.",
+  "sourceBaseCommit": "d7d82fdd966413d42afa4e47fe710acf3ed64cf8",
+  "testedFileSha256": {
+    ".github/workflows/windows.yml": "3c487e4fbd96f5c2edf96a3269cb5184cc3dfac61538eed502b4614622a3a144",
+    "tests/ci.ps1": "c77d13d038e0b4a19876ee0ade03ab150c03d3279f21d26dbaa5b6e850abb0d1",
+    "tests/ci.mjs": "34d842e435e93be7de1ca9e9b42a1b9452e5cddabbf2d2f9bc771f4b94242697",
+    "tests/run.ps1": "38102d124e8cb50930db6429f41f352b51c68ffe270b5822c3318c3de26da426",
+    "tests/app_harness.mjs": "36afdb6b25fba2d8c47f950378a98c93298ca47cdcb284e3f7308bcaada4282d",
+    "tests/foreground_probe.py": "9ce211047aace3f62c7de22b9f61cf94d034db2ab26c88c53834074e2bb5cdf1",
+    "tests/resource_usage.py": "acab5ef04326b92975a040b3b3c3df1418b7419503fd72f6153d26b80931997d",
+    "tests/test_app_harness.mjs": "166dc2640ba8306580734f925e94542468ffb069faaa44c221e6cd6a8a63814a",
+    "tests/test_foreground_probe.py": "c21f039158d6e0e26fafffd432f1a068da6f397ffb57c26aab6c7928eb2c097b",
+    "tests/test_resource_usage.py": "cbe63fd908bf522a1d409710e85327257e4fa4b0e6eb4fa36927200eb6ed0bb5",
+    "tests/test_mcp_headless.mjs": "ca24f6485f0bfc5da0a59ddc255fbec55e926b60950983b3784cc1b311467f65"
+  },
+  "automaticChecks": [
+    {
+      "powershell": "5.1.26100.8457",
+      "status": "passed",
+      "node": "v24.14.0",
+      "startedAt": "2026-11-14T02:32:44.119Z",
+      "finishedAt": "2026-11-14T02:33:44.758Z",
+      "steps": [
+        {
+          "name": "python-syntax",
+          "exitCode": 0,
+          "elapsedMs": 124
+        },
+        {
+          "name": "installation",
+          "exitCode": 0,
+          "elapsedMs": 239
+        },
+        {
+          "name": "contracts",
+          "exitCode": 0,
+          "elapsedMs": 13356
+        },
+        {
+          "name": "resources",
+          "exitCode": 0,
+          "elapsedMs": 24978
+        },
+        {
+          "name": "clean-install",
+          "exitCode": 0,
+          "elapsedMs": 20079
+        }
+      ]
+    },
+    {
+      "powershell": "7.6.9",
+      "status": "passed",
+      "node": "v24.14.0",
+      "startedAt": "2026-11-14T02:34:02.888Z",
+      "finishedAt": "2026-11-14T02:35:07.535Z",
+      "steps": [
+        {
+          "name": "python-syntax",
+          "exitCode": 0,
+          "elapsedMs": 95
+        },
+        {
+          "name": "installation",
+          "exitCode": 0,
+          "elapsedMs": 209
+        },
+        {
+          "name": "contracts",
+          "exitCode": 0,
+          "elapsedMs": 13158
+        },
+        {
+          "name": "resources",
+          "exitCode": 0,
+          "elapsedMs": 26413
+        },
+        {
+          "name": "clean-install",
+          "exitCode": 0,
+          "elapsedMs": 23174
+        }
+      ]
+    }
+  ],
+  "pythonTests": 82,
+  "workflowLint": {
+    "tool": "actionlint 1.7.12",
+    "exitCode": 0
+  },
+  "powershell7RepeatInstall": {
+    "command": "pwsh -NoProfile -File scripts/install.ps1",
+    "exitCode": 0,
+    "packagesAdded": 0
+  },
+  "fullRegression": {
+    "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/run.ps1",
+    "exitCode": 0,
+    "hiddenEffectsVerified": 16,
+    "report": "reports/validation.json",
+    "screenshotPixelsChecked": true,
+    "foregroundEvidence": "Before/after only; reports/foreground.json is not continuous proof."
+  },
+  "liveMonitorChecks": {
+    "command": "node tests/test_app_harness.mjs --live",
+    "exitCode": 0,
+    "scenarios": [
+      "strict start/stop",
+      "registered process accepted",
+      "unregistered run inconclusive",
+      "unavailable identity inconclusive",
+      "existing foreground identity detected without activation"
+    ],
+    "scope": "Read-only boundary tests. The expected foreground-target failure is a passing negative test."
+  },
+  "resources": "reports/resource-usage.json",
+  "sampling": "reports/sampling-diagnostics.json",
+  "runtimeDependenciesAdded": 0,
+  "cloudExecution": "not_run"
+}

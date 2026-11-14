@@ -1,0 +1,38 @@
+{
+  "validatedAt": "2026-11-14T02:28:20.454377+00:00",
+  "mode": "read_only_diagnostic",
+  "samples": 1458,
+  "invalidSamples": 1,
+  "invalidReasonCounts": {
+    "FOREGROUND_NULL": 1
+  },
+  "invalidEvents": [
+    {
+      "elapsedMs": 11630.11,
+      "reasons": [
+        {
+          "reason": "FOREGROUND_NULL",
+          "win32Error": null
+        }
+      ]
+    }
+  ],
+  "invalidEventsTruncated": false,
+  "activityChangeSamples": 51,
+  "elapsedSeconds": 30.006,
+  "probeCpuSeconds": 0.21875,
+  "probeCpuPercentOneCore": 0.729,
+  "maximumSampleGapMs": 22.942,
+  "meanSampleDurationMs": 0.254,
+  "maximumSampleDurationMs": 2.61,
+  "historicalInvalidSamples": {
+    "edge": 4,
+    "notepad": 2,
+    "cause": "Not recoverable: historical reports did not retain per-API failures."
+  },
+  "scope": "No GUI actions; no process registration or no-interference verdict. All invalid observations retained without retry or reclassification as valid.",
+  "sources": [
+    "https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getforegroundwindow",
+    "https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getguithreadinfo"
+  ]
+}

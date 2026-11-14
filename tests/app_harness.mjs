@@ -108,6 +108,10 @@ async function startCoexistMonitor(folder,registryFolder){
  const registry=registryFolder?resolve(registryFolder):coordination?join(coordination,'monitor-targets'):join(folder,'targets');mkdirSync(registry,{recursive:true});
  const requests=join(folder,'register.jsonl');writeFileSync(requests,'');
  const code=String.raw`import ctypes,json,time,sys,pathlib
+from collections import Counter
+sys.path.insert(0,sys.argv[4])
+from foreground_probe import WindowsProbe, input_desktop_changed
+probe=WindowsProbe()
 from ctypes import wintypes as W
 u=ctypes.WinDLL('user32',use_last_error=True);k=ctypes.WinDLL('kernel32',use_last_error=True)
 u.GetForegroundWindow.restype=W.HWND
@@ -122,9 +126,7 @@ k.CreateToolhelp32Snapshot.argtypes=[W.DWORD,W.DWORD];k.CreateToolhelp32Snapshot
 class PE(ctypes.Structure):
  _fields_=[('size',W.DWORD),('usage',W.DWORD),('pid',W.DWORD),('heap',ctypes.c_size_t),('module',W.DWORD),('threads',W.DWORD),('parent',W.DWORD),('priority',W.LONG),('flags',W.DWORD),('exe',W.WCHAR*260)]
 k.Process32FirstW.argtypes=[W.HANDLE,ctypes.POINTER(PE)];k.Process32NextW.argtypes=[W.HANDLE,ctypes.POINTER(PE)]
-class Info(ctypes.Structure):
- _fields_=[('cbSize',W.DWORD),('flags',W.DWORD),('hwndActive',W.HWND),('hwndFocus',W.HWND),('hwndCapture',W.HWND),('hwndMenuOwner',W.HWND),('hwndMoveSize',W.HWND),('hwndCaret',W.HWND),('rcCaret',W.RECT)]
-u.GetGUIThreadInfo.argtypes=[W.DWORD,ctypes.POINTER(Info)]
+
 def identity(pid):
  if not pid:return None
  h=k.OpenProcess(0x1000,False,pid)
@@ -133,17 +135,9 @@ def identity(pid):
   a,b,c,d=W.FILETIME(),W.FILETIME(),W.FILETIME(),W.FILETIME()
   return str(pid)+':'+str((a.dwHighDateTime<<32)|a.dwLowDateTime) if k.GetProcessTimes(h,ctypes.byref(a),ctypes.byref(b),ctypes.byref(c),ctypes.byref(d)) else None
  finally:k.CloseHandle(h)
-def window_identity(hwnd):
- pid=W.DWORD();u.GetWindowThreadProcessId(hwnd,ctypes.byref(pid));return identity(pid.value)
-def desktop():
- h=u.OpenInputDesktop(0,False,1)
- if not h:return None
- try:
-  name=ctypes.create_unicode_buffer(256);needed=W.DWORD()
-  return name.value if u.GetUserObjectInformationW(h,2,name,ctypes.sizeof(name),ctypes.byref(needed)) else None
- finally:u.CloseDesktop(h)
 f=pathlib.Path(sys.argv[1]);registry=pathlib.Path(sys.argv[2]);graph={};known={};roots=set();handled=set();errors=0;ancestry_errors=0;unresolved_launches=0;events=[];fg_seen={};focus_seen={}
-count=fg_changes=focus_changes=cursor_changes=invalid=desktop_changes=0;baseline=previous=None;maxgap=0;last=time.monotonic();scanned=0;registered_before_start=0
+count=fg_changes=focus_changes=cursor_changes=invalid=desktop_changes=0;baseline=previous=None;maxgap=0;last=time.monotonic();started=last;cpu_started=time.process_time();scanned=0
+invalid_reasons=Counter();invalid_events=[];sample_total=sample_max=0
 def process_tree():
  global ancestry_errors
  h=k.CreateToolhelp32Snapshot(2,0)
@@ -184,26 +178,28 @@ while not (f/'monitor.stop').exists():
   extra={key for key,parent in graph.items() if parent in targets}-targets
   if not extra:break
   targets.update(extra)
- fg=int(u.GetForegroundWindow() or 0);p=W.POINT();info=Info();info.cbSize=ctypes.sizeof(info);desk=desktop()
- valid=bool(u.GetCursorPos(ctypes.byref(p)) and u.GetGUIThreadInfo(0,ctypes.byref(info)) and fg and desk)
- focus=int(info.hwndFocus or 0);fg_key=window_identity(fg);focus_key=window_identity(focus) if focus else None
+ observation=probe.sample()
+ valid=observation['valid'];fg=observation['foreground'];focus=observation['focus'];desk=observation['desktop'];cursor=observation['cursor']
+ fg_key=observation['foregroundIdentity'];focus_key=observation['focusIdentity']
+ sample_total+=observation['sampleDurationMs'];sample_max=max(sample_max,observation['sampleDurationMs'])
+ for reason in observation['reasons']:invalid_reasons[reason['reason']]+=1
+ if observation['reasons'] and len(invalid_events)<128:invalid_events.append({'elapsedMs':round((now-started)*1000,2),'reasons':observation['reasons']})
  for key in [fg_key,focus_key]:
   if key:known.setdefault(int(key.split(':')[0]),set()).add(key)
- valid=bool(valid and fg_key and (not focus or focus_key))
- current=(fg,focus,p.x,p.y,desk)
+ current=(fg,focus,*(cursor or (None,None)),desk)
  if baseline is None:
-  if not valid:raise RuntimeError('Visible desktop foreground/focus/process identity unavailable')
+  if not valid:raise RuntimeError('Visible desktop observation unavailable: '+json.dumps(observation['reasons']))
   baseline=current;(f/'monitor.ready').write_text('ready')
- if previous is not None and current!=previous and len(events)<64:events.append({'at':round(time.time()*1000),'foreground':current[0]!=previous[0],'focus':current[1]!=previous[1],'cursor':current[2:4]!=previous[2:4],'inputDesktop':current[4]!=previous[4]})
- previous=current;invalid+=not valid;fg_changes+=fg!=baseline[0];focus_changes+=focus!=baseline[1];cursor_changes+=current[2:4]!=baseline[2:4];desktop_changes+=desk!=baseline[4]
+ if previous is not None and current!=previous and len(events)<64:events.append({'at':round(time.time()*1000),'foreground':current[0]!=previous[0],'focus':current[1]!=previous[1],'cursor':current[2:4]!=previous[2:4],'inputDesktop':input_desktop_changed(previous[4],current[4])})
+ previous=current;invalid+=not valid;fg_changes+=fg!=baseline[0];focus_changes+=focus!=baseline[1];cursor_changes+=current[2:4]!=baseline[2:4];desktop_changes+=input_desktop_changed(baseline[4],desk)
  if fg_key:fg_seen[fg_key]=fg_seen.get(fg_key,0)+1
  if focus_key:focus_seen[focus_key]=focus_seen.get(focus_key,0)+1
  target_fg=sum(n for key,n in fg_seen.items() if key in targets);target_focus=sum(n for key,n in focus_seen.items() if key in targets)
- if not valid or errors or ancestry_errors or target_fg or target_focus or desktop_changes:(f/'monitor.interference').write_text('Registered process foreground/focus, input desktop change, or incomplete observation')
+ if not valid or errors or ancestry_errors or target_fg or target_focus or desktop_changes:(f/'monitor.interference').write_text(json.dumps({'reason':'Registered process foreground/focus, input desktop change, or incomplete observation','sampleReasons':observation['reasons']}))
  count+=1;time.sleep(.02)
-(f/'monitor.json').write_text(json.dumps({'mode':'coexist','samples':count,'registeredProcesses':len(roots),'observedDescendants':len(targets-roots),'registrationFailures':errors,'unresolvedLaunchProcesses':unresolved_launches,'ancestryErrors':ancestry_errors,'targetForegroundSamples':target_fg,'targetFocusSamples':target_focus,'inputDesktopChanges':desktop_changes,'foregroundChanges':fg_changes,'focusChanges':focus_changes,'cursorChanges':cursor_changes,'invalidSamples':invalid,'maximumSampleGapMs':round(maxgap*1000,2),'changeEvents':events,'scope':'Read-only sampling; registered PID creation-time identities and sampled descendants. Previous samples are checked when targets register. Activity is not attributed to a human. Processes that start and exit between ancestry samples may be missed; pre-monitor launches and sub-sample interference are outside coverage.'}))
+(f/'monitor.json').write_text(json.dumps({'mode':'coexist','samples':count,'registeredProcesses':len(roots),'observedDescendants':len(targets-roots),'registrationFailures':errors,'unresolvedLaunchProcesses':unresolved_launches,'ancestryErrors':ancestry_errors,'targetForegroundSamples':target_fg,'targetFocusSamples':target_focus,'inputDesktopChanges':desktop_changes,'foregroundChanges':fg_changes,'focusChanges':focus_changes,'cursorChanges':cursor_changes,'invalidSamples':invalid,'invalidReasonCounts':dict(invalid_reasons),'invalidEvents':invalid_events,'invalidEventsTruncated':invalid>len(invalid_events),'probeMeanDurationMs':round(sample_total/max(count,1),3),'probeMaximumDurationMs':round(sample_max,3),'monitorCpuSeconds':round(time.process_time()-cpu_started,6),'monitorElapsedSeconds':round(time.monotonic()-started,3),'maximumSampleGapMs':round(maxgap*1000,2),'changeEvents':events,'scope':'Read-only sampling; registered PID creation-time identities and sampled descendants. Previous samples are checked when targets register. Activity is not attributed to a human. Processes that start and exit between ancestry samples may be missed; pre-monitor launches and sub-sample interference are outside coverage.'}))
 `;
- const child=spawn(join(root,'runtime','Scripts','python.exe'),['-B','-c',code,folder,registry,String(process.pid)],{windowsHide:true,stdio:['ignore','ignore','pipe']});
+ const child=spawn(join(root,'runtime','Scripts','python.exe'),['-B','-c',code,folder,registry,String(process.pid),join(root,'tests')],{windowsHide:true,stdio:['ignore','ignore','pipe']});
  let error='',spawnError;child.stderr.on('data',b=>error+=b);child.on('error',e=>spawnError=e);
  for(let i=0;i<200&&!existsSync(join(folder,'monitor.ready'))&&child.exitCode===null&&!spawnError;i++)await pause(20);
  if(!existsSync(join(folder,'monitor.ready'))){child.kill();throw new Error('Coexist monitor unavailable: '+(spawnError?.message??error))}

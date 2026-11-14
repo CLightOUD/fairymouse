@@ -1,0 +1,268 @@
+{
+  "validatedAt": "2026-11-14T02:32:59.808622+00:00",
+  "status": "passed",
+  "runtimeDependenciesAdded": 0,
+  "scope": "Windows MCP process trees only; sampler and user applications excluded. Empty hidden desktops, no application launch, physical input or focus actions.",
+  "definitions": {
+    "cpuPercentOneCore": "100% means one logical core fully occupied; measured delta kernel+user CPU over actual wall interval.",
+    "workingSetMiBSum": "Sum of per-process resident working sets; shared pages may be counted repeatedly, not unique physical RAM.",
+    "privateMiBSum": "Sum of private committed memory, not resident physical memory.",
+    "startup": "Node process spawn through MCP initialize and tools/list. Repeated same-machine launches may use OS caches.",
+    "coverage": "PID and creation-time identities retain open handles. Live descendant scan every sample and while RPC waits; extremely short-lived unobserved processes may be missed.",
+    "thresholds": "No machine-independent CPU/RAM thresholds; protocol, measurement availability and observed-process cleanup are asserted."
+  },
+  "environment": {
+    "python": "3.12.13",
+    "logicalProcessors": 24
+  },
+  "scenarios": [
+    {
+      "route": "desktop",
+      "agents": 1,
+      "status": "passed",
+      "startupToToolsReadyMs": [
+        157.93
+      ],
+      "startupMethod": "Each service launched and initialized sequentially; all agents then measured concurrently.",
+      "readyIdle": {
+        "durationSeconds": 3.016,
+        "samples": 15,
+        "cpuPercentOneCore": 0.0,
+        "workingSetMiBSumMedian": 68.414,
+        "workingSetMiBSumPeak": 68.414,
+        "privateMiBSumMedian": 29.945,
+        "privateMiBSumPeak": 29.945,
+        "handleCountFirst": 500,
+        "handleCountLast": 500,
+        "aliveProcessCountFirst": 4,
+        "aliveProcessCountLast": 4,
+        "processImageCountsLast": {
+          "node.exe": 1,
+          "conhost.exe": 2,
+          "agent-desktop.exe": 1
+        }
+      },
+      "shutdownMs": 44.12,
+      "cleanup": {
+        "observedProcessIdentities": 6,
+        "aliveBeforeShutdown": 4,
+        "aliveAfterShutdown": 0,
+        "unknownExitStates": 0,
+        "handlesBeforeShutdown": 500,
+        "handlesAfterShutdown": 0,
+        "discoveryMisses": 0,
+        "rootExitCodes": [
+          0
+        ]
+      }
+    },
+    {
+      "route": "desktop",
+      "agents": 3,
+      "status": "passed",
+      "startupToToolsReadyMs": [
+        145.68,
+        161.54,
+        146.96
+      ],
+      "startupMethod": "Each service launched and initialized sequentially; all agents then measured concurrently.",
+      "readyIdle": {
+        "durationSeconds": 3.015,
+        "samples": 15,
+        "cpuPercentOneCore": 0.0,
+        "workingSetMiBSumMedian": 205.086,
+        "workingSetMiBSumPeak": 205.086,
+        "privateMiBSumMedian": 89.523,
+        "privateMiBSumPeak": 89.523,
+        "handleCountFirst": 1500,
+        "handleCountLast": 1500,
+        "aliveProcessCountFirst": 12,
+        "aliveProcessCountLast": 12,
+        "processImageCountsLast": {
+          "node.exe": 3,
+          "conhost.exe": 6,
+          "agent-desktop.exe": 3
+        }
+      },
+      "shutdownMs": 47.8,
+      "cleanup": {
+        "observedProcessIdentities": 16,
+        "aliveBeforeShutdown": 12,
+        "aliveAfterShutdown": 0,
+        "unknownExitStates": 0,
+        "handlesBeforeShutdown": 1500,
+        "handlesAfterShutdown": 0,
+        "discoveryMisses": 0,
+        "rootExitCodes": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "route": "hidden",
+      "agents": 1,
+      "status": "passed",
+      "startupToToolsReadyMs": [
+        624.65
+      ],
+      "startupMethod": "Each service launched and initialized sequentially; all agents then measured concurrently.",
+      "readyIdle": {
+        "durationSeconds": 3.014,
+        "samples": 15,
+        "cpuPercentOneCore": 0.0,
+        "workingSetMiBSumMedian": 121.719,
+        "workingSetMiBSumPeak": 121.719,
+        "privateMiBSumMedian": 74.012,
+        "privateMiBSumPeak": 74.012,
+        "handleCountFirst": 630,
+        "handleCountLast": 630,
+        "aliveProcessCountFirst": 5,
+        "aliveProcessCountLast": 5,
+        "processImageCountsLast": {
+          "node.exe": 1,
+          "conhost.exe": 2,
+          "python.exe": 2
+        }
+      },
+      "firstWorkerCreateMs": [
+        520.34
+      ],
+      "workerIdle": {
+        "durationSeconds": 3.018,
+        "samples": 15,
+        "cpuPercentOneCore": 0.0,
+        "workingSetMiBSumMedian": 186.441,
+        "workingSetMiBSumPeak": 186.441,
+        "privateMiBSumMedian": 119.219,
+        "privateMiBSumPeak": 119.219,
+        "handleCountFirst": 887,
+        "handleCountLast": 887,
+        "aliveProcessCountFirst": 7,
+        "aliveProcessCountLast": 7,
+        "processImageCountsLast": {
+          "node.exe": 1,
+          "conhost.exe": 2,
+          "python.exe": 2,
+          "pythonw.exe": 2
+        }
+      },
+      "desktopsReleased": 1,
+      "afterRelease": {
+        "cpuSeconds": 1.15625,
+        "workingSetBytesSum": 195506176,
+        "privateBytesSum": 124973056,
+        "handleCountSum": 883,
+        "aliveProcesses": 7,
+        "processImageCounts": {
+          "node.exe": 1,
+          "conhost.exe": 2,
+          "python.exe": 2,
+          "pythonw.exe": 2
+        }
+      },
+      "shutdownMs": 125.61,
+      "cleanup": {
+        "observedProcessIdentities": 7,
+        "aliveBeforeShutdown": 7,
+        "aliveAfterShutdown": 0,
+        "unknownExitStates": 0,
+        "handlesBeforeShutdown": 883,
+        "handlesAfterShutdown": 0,
+        "discoveryMisses": 0,
+        "rootExitCodes": [
+          0
+        ]
+      }
+    },
+    {
+      "route": "hidden",
+      "agents": 3,
+      "status": "passed",
+      "startupToToolsReadyMs": [
+        821.97,
+        782.94,
+        697.31
+      ],
+      "startupMethod": "Each service launched and initialized sequentially; all agents then measured concurrently.",
+      "readyIdle": {
+        "durationSeconds": 3.017,
+        "samples": 15,
+        "cpuPercentOneCore": 0.0,
+        "workingSetMiBSumMedian": 364.953,
+        "workingSetMiBSumPeak": 364.953,
+        "privateMiBSumMedian": 221.398,
+        "privateMiBSumPeak": 221.398,
+        "handleCountFirst": 1890,
+        "handleCountLast": 1890,
+        "aliveProcessCountFirst": 15,
+        "aliveProcessCountLast": 15,
+        "processImageCountsLast": {
+          "node.exe": 3,
+          "conhost.exe": 6,
+          "python.exe": 6
+        }
+      },
+      "firstWorkerCreateMs": [
+        528.25,
+        530.06,
+        522.98
+      ],
+      "workerIdle": {
+        "durationSeconds": 3.017,
+        "samples": 15,
+        "cpuPercentOneCore": 0.0,
+        "workingSetMiBSumMedian": 559.355,
+        "workingSetMiBSumPeak": 559.355,
+        "privateMiBSumMedian": 358.422,
+        "privateMiBSumPeak": 358.422,
+        "handleCountFirst": 2661,
+        "handleCountLast": 2661,
+        "aliveProcessCountFirst": 21,
+        "aliveProcessCountLast": 21,
+        "processImageCountsLast": {
+          "node.exe": 3,
+          "conhost.exe": 6,
+          "python.exe": 6,
+          "pythonw.exe": 6
+        }
+      },
+      "desktopsReleased": 3,
+      "afterRelease": {
+        "cpuSeconds": 3.5625,
+        "workingSetBytesSum": 586547200,
+        "privateBytesSum": 375721984,
+        "handleCountSum": 2649,
+        "aliveProcesses": 21,
+        "processImageCounts": {
+          "node.exe": 3,
+          "conhost.exe": 6,
+          "python.exe": 6,
+          "pythonw.exe": 6
+        }
+      },
+      "shutdownMs": 180.7,
+      "cleanup": {
+        "observedProcessIdentities": 21,
+        "aliveBeforeShutdown": 21,
+        "aliveAfterShutdown": 0,
+        "unknownExitStates": 0,
+        "handlesBeforeShutdown": 2649,
+        "handlesAfterShutdown": 0,
+        "discoveryMisses": 0,
+        "rootExitCodes": [
+          0,
+          0,
+          0
+        ]
+      }
+    }
+  ],
+  "elapsedSeconds": 24.856,
+  "samplerHandles": {
+    "before": 186,
+    "after": 189,
+    "scope": "Diagnostic only; Python I/O and thread startup may retain handles, excluded from service metrics."
+  }
+}

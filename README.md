@@ -105,6 +105,8 @@ Edge 回归中的 CDP 只读取几何与状态，实际输入和原生保存由 
 
 ## 测试与维护
 
+Windows 自动检查、无效采样诊断及单／多服务资源测量见 [持续检查说明](docs/continuous-checks.md)。工作流覆盖无交互契约和安装，真实应用兼容性仍由单独回归验证；不增加生产运行依赖。
+
 ```powershell
 # 安装诊断：不启动用户应用
 node scripts/doctor.mjs
